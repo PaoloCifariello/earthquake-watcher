@@ -35,12 +35,11 @@ body {
     vertical-align: top;
 }
 
-#options-panel {
-}
+#options-panel {}
 
 #list-panel {
     max-height: 492px;
-    overflow-y:scroll; 
+    overflow-y: scroll;
 }
 
 #radio-options {
