@@ -8,13 +8,22 @@ function initMap() {
     window.map = new Map(zoom, center);
     map.initializeMap();
     
+    map.on('bounds_changed', () => {
+        let visibleEarthquakes = map.getVisibleEarthquakes();
+        $('#list-panel').empty();
+        
+        $.each(visibleEarthquakes, (i, earthquake) => {
+            $('#list-panel').append(getListElement(earthquake));
+        });
+    });
+    
     // Set mouseover event for each feature.
 //    map.data.addListener('mouseover', function(event) {
 //        console.log(event);
 //    });
 //    
 //    fetchEarthquakes();
-    let fetcher = new Fetcher();
+    let fetcher = new Fetcher(new Proxy());
     
     fetcher.fetchData({
         starttime: '2016-01-01',
@@ -24,6 +33,11 @@ function initMap() {
         map.setData(data);
     });
 }
+
+function getListElement(earthquake) {
+    return $('<a href="#" class="list-group-item"> ' + earthquake.id + '</a>');
+}
+
 
 $(function() {
     $('div#radio-options input').change(() => {

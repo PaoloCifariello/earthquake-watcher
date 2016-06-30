@@ -32,6 +32,10 @@ class Map {
 //        });
     }
     
+    on(eventName, fn) {
+        this._map.addListener(eventName, fn);
+    }
+    
     setVisualizationType(visualizationType) {
         this._visualizationType = visualizationType;
         
@@ -51,6 +55,19 @@ class Map {
                 this._heatmap.setMap(this._map);
                 break;
         }
+    }
+    
+    getVisibleEarthquakes() {
+        let visibleEarthquakes = [];
+        $.each(this._data, (i, earthquake) => {
+            let coords = earthquake.geometry.coordinates,
+                position = new google.maps.LatLng(coords[1], coords[0]);
+            
+            if (this._map.getBounds().contains(position))
+                visibleEarthquakes.push(earthquake);
+        });
+        
+        return visibleEarthquakes;
     }
     
     _initializeHeatMap() {
@@ -86,7 +103,8 @@ class Map {
                     scale: Math.pow(2, magnitude) / 2,
                     strokeColor: 'white',
                     strokeWeight: .5
-                }
+                },
+                scale: magnitude
             };
         };
     }

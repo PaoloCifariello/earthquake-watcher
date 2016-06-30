@@ -11,26 +11,36 @@ body {
 
 #app-body {
     width: 98%;
-    height: 95%;
+    height: 94%;
     align-content: center;
     margin: 10px 15px 10px 15px;
     display: inline-table;
+    text-align: center;
 }
 
 #map {
     /*position: relative;*/
     display: inline-block;
-    margin: 0px 8px 5px 0px;
+    margin: 0px 10px 10px 0px;
     width: 64%;
-    height: 100%;
+    height: 98%;
     min-height: 400px;
 }
 
-#options-panel {
+#right-panel {
     display: inline-block;
     margin: 0px 10px 0px 8px;
-    width: 34%;
+    width: 32%;
+    height: 100%;
     vertical-align: top;
+}
+
+#options-panel {
+}
+
+#list-panel {
+    max-height: 492px;
+    overflow-y:scroll; 
 }
 
 #radio-options {
