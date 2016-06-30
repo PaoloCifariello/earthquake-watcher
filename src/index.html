@@ -2,6 +2,7 @@
 <meta charset="utf-8">
 <html>
     <head>
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
         <!-- STYLES -->
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -9,6 +10,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
         <!-- Web App CSS -->
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/toggle.css">
         
         <!-- CODE -->
         <!-- jQuery -->
@@ -18,6 +20,8 @@
         <!-- Google Maps API -->
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8ZRDLlXMbLuF_N9xBekj2lUQjUSeX4p8&libraries=visualization&callback=initMap" type="text/javascript"></script>
         <!-- Web App JS -->
+        <script src="js/Fetcher.js"></script>
+        <script src="js/Map.js"></script>
         <script src="js/main.js"></script>
     </head>
     <body>
@@ -28,15 +32,34 @@
         </div>
         <div id="app-body">
             <div id="map"></div>
-            <div id="options-panel" class="panel panel-default">
+            <div id="options-panel" class="panel panel-primary">
                 <div class="panel-heading">Options</div>
-                <div class="panel-body">
-                    <div class="checkbox">
-                        <label><input id="show-markers-option" type="checkbox" value="" checked>Show markers</label>
-                    </div>
-                    <div class="input-group">
-                        <label class="radio-inline"><input type="radio" name="optradio">Headmap</label>
-                        <label class="radio-inline"><input type="radio" name="optradio">Circle visualization</label>
+                    <div class="panel-body">
+                    <div id="radio-options" data-toggle="buttons">
+                        <div class="col-xs-12">
+                            <span>Visualization style:</span>
+                            <br>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn active">
+                                  <input type="radio" name='visualization-type' value="markers" checked>
+                                    <i class="fa fa-circle-o fa-2x"></i>
+                                    <i class="fa fa-check-circle-o fa-2x"></i>
+                                    <span> Markers</span>
+                                </label>
+                                <label class="btn active">
+                                  <input type="radio" name='visualization-type' value="circle">
+                                    <i class="fa fa-circle-o fa-2x"></i>
+                                    <i class="fa fa-check-circle-o fa-2x"></i>
+                                    <span> Circle</span>
+                                </label>
+                                <label class="btn active">
+                                    <input type="radio" name='visualization-type' value="heatmap">
+                                    <i class="fa fa-circle-o fa-2x"></i>
+                                    <i class="fa fa-check-circle-o fa-2x"></i>
+                                    <span> Heatmap</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

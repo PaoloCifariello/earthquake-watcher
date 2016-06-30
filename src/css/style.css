@@ -32,3 +32,12 @@ body {
     width: 34%;
     vertical-align: top;
 }
+
+#radio-options {
+    text-align: center;
+}
+
+.radio-visualization {
+    margin: 10px 10px 10px 10px;
+    border-radius: 0px;
+}

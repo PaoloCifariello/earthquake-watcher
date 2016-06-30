@@ -1,14 +1,12 @@
-var key = "AIzaSyA8ZRDLlXMbLuF_N9xBekj2lUQjUSeX4p8";
-var map;
 var currentData = [];
 var markers = [];
 
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 2,
-        center: {lat: 41.850, lng: -87.650},
-        mapTypeId: google.maps.MapTypeId.TERRAIN
-    });
+    let zoom = 2,
+        center = {lat: 41.850, lng: -87.650};
+    
+    window.map = new Map(zoom, center);
+    map.initializeMap();
     
     // Set mouseover event for each feature.
 //    map.data.addListener('mouseover', function(event) {
@@ -16,17 +14,21 @@ function initMap() {
 //    });
 //    
 //    fetchEarthquakes();
+    let fetcher = new Fetcher();
+    
+    fetcher.fetchData({
+        starttime: '2016-01-01',
+        endtime: '2016-01-02'
+    }).then((data) => {
+        /* GeoJSON object, type: FeatureCollection */
+        map.setData(data);
+    });
 }
 
 $(function() {
-    $('#show-markers-option').change(function() {
-        let mapToSet = null;
-        if ($(event.target).prop('checked'))
-            mapToSet = map;
-        
-        $.each(markers, (i, marker) => {
-            marker.setMap(mapToSet);
-        });
+    $('div#radio-options input').change(() => {
+        let visualizationType = $('div#radio-options input:checked').val();
+        map.setVisualizationType(visualizationType);
     });
 });
 
@@ -49,27 +51,10 @@ function fetchEarthquakes() {
 //      dissipating: false,
 //      map: map
 //    });
-        $.each(data.features, function(i, earthquake) {
-            addEarthquakeToMap(earthquake);
-        });
     });
 }
 
 function addEarthquakeToMap(earthquake) {
-    let coordinates = earthquake.geometry.coordinates,
-        latLng = new google.maps.LatLng(coordinates[1],coordinates[0]);
-    
-    var marker = new google.maps.Marker({
-        position: latLng,
-        map: map
-    });
-    marker.addListener('click', function() {
-        debugger;
-        //infowindow.open(marker.get('map'), marker);
-    });
-    markers.push(marker);
-    
-    
 
 //    var cityCircle = new google.maps.Circle({
 //      strokeColor: '#FF0000',
