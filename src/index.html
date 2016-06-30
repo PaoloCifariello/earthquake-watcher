@@ -20,6 +20,7 @@
         <!-- Google Maps API -->
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8ZRDLlXMbLuF_N9xBekj2lUQjUSeX4p8&libraries=visualization&callback=initMap" type="text/javascript"></script>
         <!-- Web App JS -->
+        <script src="js/Proxy.js"></script>
         <script src="js/Fetcher.js"></script>
         <script src="js/Map.js"></script>
         <script src="js/main.js"></script>
@@ -32,35 +33,62 @@
         </div>
         <div id="app-body">
             <div id="map"></div>
-            <div id="options-panel" class="panel panel-primary">
-                <div class="panel-heading">Options</div>
-                    <div class="panel-body">
-                    <div id="radio-options" data-toggle="buttons">
-                        <div class="col-xs-12">
-                            <span>Visualization style:</span>
-                            <br>
-                            <div class="btn-group" data-toggle="buttons">
-                                <label class="btn active">
-                                  <input type="radio" name='visualization-type' value="markers" checked>
-                                    <i class="fa fa-circle-o fa-2x"></i>
-                                    <i class="fa fa-check-circle-o fa-2x"></i>
-                                    <span> Markers</span>
-                                </label>
-                                <label class="btn active">
-                                  <input type="radio" name='visualization-type' value="circle">
-                                    <i class="fa fa-circle-o fa-2x"></i>
-                                    <i class="fa fa-check-circle-o fa-2x"></i>
-                                    <span> Circle</span>
-                                </label>
-                                <label class="btn active">
-                                    <input type="radio" name='visualization-type' value="heatmap">
-                                    <i class="fa fa-circle-o fa-2x"></i>
-                                    <i class="fa fa-check-circle-o fa-2x"></i>
-                                    <span> Heatmap</span>
-                                </label>
+            <div id="right-panel">
+                <div id="options-panel" class="panel panel-primary">
+                    <div class="panel-heading">Options</div>
+                        <div class="panel-body">
+                            <div id="radio-options" data-toggle="buttons">
+                                <div class="col-xs-12">
+                                    <span>Visualization style:</span>
+                                    <br>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn active">
+                                          <input type="radio" name='visualization-type' value="markers" checked>
+                                            <i class="fa fa-circle-o fa-2x"></i>
+                                            <i class="fa fa-check-circle-o fa-2x"></i>
+                                            <span> Markers</span>
+                                        </label>
+                                        <label class="btn active">
+                                          <input type="radio" name='visualization-type' value="circle">
+                                            <i class="fa fa-circle-o fa-2x"></i>
+                                            <i class="fa fa-check-circle-o fa-2x"></i>
+                                            <span> Circle</span>
+                                        </label>
+                                        <label class="btn active">
+                                            <input type="radio" name='visualization-type' value="heatmap">
+                                            <i class="fa fa-circle-o fa-2x"></i>
+                                            <i class="fa fa-check-circle-o fa-2x"></i>
+                                            <span> Heatmap</span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                     </div>
+                </div>
+                <a href="#" class="list-group-item active">Earthquakes in this area</a>
+                <div id="list-panel" class="list-group clearfix">
+                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                    <a href="#" class="list-group-item">Morbi leo risus</a>
+                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                    <a href="#" class="list-group-item">Vestibulum at eros</a>
+                    
+                    <a href="#" class="list-group-item">Cras justo odio</a>
+                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                    <a href="#" class="list-group-item">Morbi leo risus</a>
+                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                    <a href="#" class="list-group-item">Vestibulum at eros</a>
+                    
+                    <a href="#" class="list-group-item">Cras justo odio</a>
+                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                    <a href="#" class="list-group-item">Morbi leo risus</a>
+                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                    <a href="#" class="list-group-item">Vestibulum at eros</a>
+                    
+                    <a href="#" class="list-group-item">Cras justo odio</a>
+                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                    <a href="#" class="list-group-item">Morbi leo risus</a>
+                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                    <a href="#" class="list-group-item">Vestibulum at eros</a>
                 </div>
             </div>
         </div>
