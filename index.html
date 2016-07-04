@@ -17,8 +17,13 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <!-- Bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- Moment.js -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <!-- Google Maps API -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8ZRDLlXMbLuF_N9xBekj2lUQjUSeX4p8&libraries=visualization&callback=initMap" type="text/javascript"></script>
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <!-- Web App JS -->
     <script src="js/Proxy.js"></script>
     <script src="js/Fetcher.js"></script>
@@ -38,7 +43,7 @@
                 <div class="panel-heading">Options</div>
                 <div class="panel-body">
                     <div id="radio-options" data-toggle="buttons">
-                        <div class="col-xs-12"> <span>Visualization style:</span>
+                        <div class="col-xs-12"> <span class="option-title">Visualization style:</span>
                             <br>
                             <div class="btn-group" data-toggle="buttons">
                                 <label class="btn active">
@@ -49,6 +54,9 @@
                                     <input type="radio" name='visualization-type' value="heatmap"> <i class="fa fa-circle-o fa-2x"></i> <i class="fa fa-check-circle-o fa-2x"></i> <span> Heatmap</span> </label>
                             </div>
                         </div>
+                    </div>
+                    <div id="date-range-options"> <span class="option-title">Date range:</span>
+                        <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%"> <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp; <span></span> <b class="caret"></b> </div>
                     </div>
                 </div>
             </div> <a href="#" class="list-group-item active">Earthquakes in this area</a>

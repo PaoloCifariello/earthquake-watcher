@@ -22,16 +22,14 @@ class Map {
         });
     }
     setData(data) {
-        this._data = data.features;
-        this._map.data.addGeoJson(data);
+        let dataLayer = this._map.data;
+        dataLayer.forEach((feature) => {
+            dataLayer.remove(feature);
+        });
+        this._data = dataLayer.addGeoJson(data);
         this._initializeHeatMap();
         this.setVisualizationType('markers');
-        //        $.each(data.features, (i, earthquake) => {
-        //            let coordinates = earthquake.geometry.coordinates,
-        //                latLng = new google.maps.LatLng(coordinates[1],coordinates[0]),
-        //                marker = this._createMarker(latLng);
-        //            this._markers.push(marker);
-        //        });
+        google.maps.event.trigger(this._map, 'bounds_changed');
     }
     setVisualizationType(visualizationType) {
         this._visualizationType = visualizationType;
@@ -54,10 +52,10 @@ class Map {
     }
     getVisibleEarthquakes() {
         let visibleEarthquakes = [];
-        $.each(this._data, (i, earthquake) => {
-            let coords = earthquake.geometry.coordinates
-                , position = new google.maps.LatLng(coords[1], coords[0]);
-            if (this._map.getBounds().contains(position)) visibleEarthquakes.push(earthquake);
+        this._map.data.forEach((earthquake) => {
+            let position = earthquake.getGeometry().get()
+                , bounds = this._map.getBounds();
+            if (bounds && bounds.contains(position)) visibleEarthquakes.push(earthquake);
         });
         return visibleEarthquakes;
     }
@@ -69,12 +67,11 @@ class Map {
     }
     _initializeHeatMap() {
         let heatmapData = [];
-        $.each(this._data, (i, earthquake) => {
-            let coords = earthquake.geometry.coordinates
-                , latLng = new google.maps.LatLng(coords[1], coords[0])
-                , magnitude = earthquake.properties.mag;
+        this._map.data.forEach((earthquake) => {
+            let position = earthquake.getGeometry().get()
+                , magnitude = earthquake.getProperty('mag');
             heatmapData.push({
-                location: latLng
+                location: position
                 , weight: Math.pow(2, magnitude)
             });
         });
@@ -86,7 +83,7 @@ class Map {
     }
     _getMarkersStyle() {
             return (feature) => {
-                if (map._selectedFeature && feature.getId() == map._selectedFeature.id) return {
+                if (map._selectedFeature && feature == map._selectedFeature) return {
                     icon: '/src/assets/selected-feature.png'
                 };
             };

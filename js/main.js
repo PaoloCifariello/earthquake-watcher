@@ -15,12 +15,36 @@ function initMap() {
         $.each(visibleEarthquakes, (i, earthquake) => {
             let listElement = getListElement(earthquake);
             listElement.click(() => {
-                let coords = earthquake.geometry.coordinates
-                    , position = new google.maps.LatLng(coords[1], coords[0]);
+                let position = earthquake.getGeometry().get();
                 map._selectedFeature = earthquake;
                 map.refresh();
             });
             $('#list-panel').append(listElement);
+        });
+    });
+    $(function () {
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
+        }
+        cb(moment(), moment());
+        $('#reportrange').daterangepicker({
+            ranges: {
+                'Today': [moment(), moment()]
+                , 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')]
+                , 'Last 7 Days': [moment().subtract(6, 'days'), moment()]
+                , 'Last 30 Days': [moment().subtract(29, 'days'), moment()]
+                , 'This Month': [moment().startOf('month'), moment().endOf('month')]
+                , 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, cb);
+        $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+            fetcher.fetchData({
+                starttime: picker.startDate.format('YYYY-MM-DD')
+                , endtime: picker.endDate.format('YYYY-MM-DD')
+            }).then((data) => {
+                /* GeoJSON object, type: FeatureCollection */
+                map.setData(data);
+            });
         });
     });
     // Set mouseover event for each feature.
@@ -29,7 +53,7 @@ function initMap() {
     //    });
     //    
     //    fetchEarthquakes();
-    let fetcher = new Fetcher(new Proxy());
+    window.fetcher = new Fetcher(); //new Proxy());
     fetcher.fetchData({
         starttime: '2016-01-01'
         , endtime: '2016-01-02'
@@ -40,7 +64,7 @@ function initMap() {
 }
 
 function getListElement(earthquake) {
-    return $('<a href="#" class="list-group-item"> ' + earthquake.id + '<br>Magnitude ' + earthquake.properties.mag + '</a>');
+    return $('<a href="#" class="list-group-item"> ' + earthquake.getId() + '<br>Magnitude ' + earthquake.getProperty('mag') + '</a>');
 }
 $(function () {
     $('div#radio-options input').change(() => {
