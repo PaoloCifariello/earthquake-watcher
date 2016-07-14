@@ -1,14 +1,14 @@
-var currentData = [];
-var markers = [];
-
+/* initialization when Gmaps is loaded */
 function initMap() {
-    let zoom = 2
-        , center = {
-            lat: 41.850
-            , lng: -87.650
+    /* Initialize Map object */
+    let zoom = 2,
+        center = {
+            lat: 41.850,
+            lng: -87.650
         };
     window.map = new Map(zoom, center);
     map.initializeMap();
+    /* refresh list when bounds change, also set handler for green marker */
     map.on('bounds_changed', () => {
         let visibleEarthquakes = map.getVisibleEarthquakes();
         $('#list-panel').empty();
@@ -22,53 +22,57 @@ function initMap() {
             $('#list-panel').append(listElement);
         });
     });
+    /*  */
     $(function () {
         function cb(start, end) {
             $('#reportrange span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
         }
         cb(moment(), moment());
+        /* Date range picker initialization */
         $('#reportrange').daterangepicker({
             ranges: {
-                'Today': [moment(), moment()]
-                , 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')]
-                , 'Last 7 Days': [moment().subtract(6, 'days'), moment()]
-                , 'Last 30 Days': [moment().subtract(29, 'days'), moment()]
-                , 'This Month': [moment().startOf('month'), moment().endOf('month')]
-                , 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                'Today': [moment(), moment().add(1, 'days')],
+                'Yesterday': [moment().subtract(1, 'days'), moment()],
+                'Last 7 Days': [moment().subtract(7, 'days'), moment()]
             }
         }, cb);
+        /* callback when date range changes */
         $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
             fetcher.fetchData({
-                starttime: picker.startDate.format('YYYY-MM-DD')
-                , endtime: picker.endDate.format('YYYY-MM-DD')
+                starttime: picker.startDate.format('YYYY-MM-DD'),
+                endtime: picker.endDate.format('YYYY-MM-DD')
             }).then((data) => {
                 /* GeoJSON object, type: FeatureCollection */
                 map.setData(data);
             });
         });
     });
-    // Set mouseover event for each feature.
-    //    map.data.addListener('mouseover', function(event) {
-    //        console.log(event);
-    //    });
-    //    
-    //    fetchEarthquakes();
-    window.fetcher = new Fetcher(); //new Proxy());
+    /* initialize fetcher and fetch starting data */
+    window.fetcher = new Fetcher(); //new Proxy()); //new Proxy());
     fetcher.fetchData({
-        starttime: '2016-01-01'
-        , endtime: '2016-01-02'
+        starttime: moment().format('YYYY-MM-DD'),
+        endtime: moment().add(1, 'days').format('YYYY-MM-DD')
     }).then((data) => {
         /* GeoJSON object, type: FeatureCollection */
         map.setData(data);
     });
 }
 
+
+/* earthquake info for list */
 function getListElement(earthquake) {
-    return $('<a href="#" class="list-group-item"> ' + earthquake.getId() + '<br>Magnitude ' + earthquake.getProperty('mag') + '</a>');
+    return $('<a href="#" class="list-group-item"> ' + earthquake.getId() + '<br>Magnitude ' + earthquake.getProperty('mag') + '<br>Date ' + moment.unix(earthquake.getProperty('time') / 1000).format('DD-MM-DD') + '</a>');
 }
+
+/* set handler for visualization type -> list */
 $(function () {
     $('div#radio-options input').change(() => {
         let visualizationType = $('div#radio-options input:checked').val();
         map.setVisualizationType(visualizationType);
     });
+});
+
+/* SLIDER initialization */
+$(function () {
+    $("#magnitude-range").slider({});
 });

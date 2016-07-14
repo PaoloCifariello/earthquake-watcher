@@ -1,7 +1,7 @@
 class Fetcher {
     constructor(proxy) {
         this._proxy = proxy || null;
-        this._url = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson";
+        this._url = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=magnitude";
     }
     fetchData(options) {
         let promiseToReturn = null;
@@ -9,8 +9,7 @@ class Fetcher {
             promiseToReturn = new Promise((resolve, reject) => {
                 resolve(this._proxy.getData());
             });
-        }
-        else {
+        } else {
             let url = this._url;
             $.each(options, (key, value) => {
                 url += '&' + key + '=' + value;

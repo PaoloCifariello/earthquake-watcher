@@ -14,31 +14,45 @@ body {
     height: 94%;
     align-content: center;
     margin: 10px 15px 10px 15px;
-    display: inline-table;
+    display: flex;
     text-align: center;
 }
 
 #map {
     /*position: relative;*/
-    display: inline-block;
-    margin: 0px 10px 10px 0px;
-    width: 64%;
-    height: 98%;
-    min-height: 400px;
+    display: flex;
+    margin: 10px 10px 10px 10px;
+    width: 100%;
+    height: 100%;
 }
 
 #right-panel {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     margin: 0px 10px 0px 8px;
     width: 32%;
     height: 100%;
     vertical-align: top;
 }
 
+#plate-tooltip {
+    position: absolute;
+    display: none;
+    width: 150px;
+    height: 30px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    left: 0;
+    top: 0;
+}
+
 #options-panel {}
 
 #list-panel {
-    max-height: 492px;
+    max-height: 416px;
     overflow-y: scroll;
 }
 
@@ -49,4 +63,8 @@ body {
 .radio-visualization {
     margin: 10px 10px 10px 10px;
     border-radius: 0px;
+}
+
+.option-label {
+    font-size: 1.2em;
 }
