@@ -12,6 +12,7 @@ class Map {
         this._data = [];
         this._selectedFeature = null;
         this._currentLabel = null;
+        this.fetcher = new Fetcher(); //new Proxy()); //new Proxy());
     }
 
     initializeMap() {
@@ -69,6 +70,15 @@ class Map {
 
     on(eventName, fn) {
         this._map.addListener(eventName, fn);
+    }
+
+    refreshData() {
+        this.fetcher
+            .fetchData()
+            .then((data) => {
+                /* GeoJSON object, type: FeatureCollection */
+                this.setData(data);
+            });
     }
 
     _initializeHeatMap() {
