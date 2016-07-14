@@ -9,25 +9,10 @@ function initMap() {
     window.map = new Map(zoom, center);
     map.initializeMap();
     /* refresh list when bounds change, also set handler for green marker */
-    map.on('bounds_changed', () => {
-        let visibleEarthquakes = map.getVisibleEarthquakes();
-        $('#list-panel').empty();
-        $.each(visibleEarthquakes, (i, earthquake) => {
-            let listElement = getListElement(earthquake);
-            listElement.click(() => {
-                let position = earthquake.getGeometry().get(),
-                    dataLayer = map._map.data;
+    map.on('bounds_changed', refreshEarthquakesList);
+    map.refreshData();
 
-                map._selectedFeature = earthquake;
-                dataLayer.revertStyle();
-                dataLayer.overrideStyle(earthquake, {
-                    icon: '/src/assets/selected-feature.png'
-                });
-            });
-            $('#list-panel').append(listElement);
-        });
-    });
-    /*  */
+    /* Date range picker */
     $(function () {
         function cb(start, end) {
             $('#reportrange span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
@@ -41,25 +26,14 @@ function initMap() {
                 'Last 7 Days': [moment().subtract(7, 'days'), moment()]
             }
         }, cb);
+
         /* callback when date range changes */
         $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
-            fetcher.fetchData({
-                starttime: picker.startDate.format('YYYY-MM-DD'),
-                endtime: picker.endDate.format('YYYY-MM-DD')
-            }).then((data) => {
-                /* GeoJSON object, type: FeatureCollection */
-                map.setData(data);
-            });
+            map.fetcher
+                .set('starttime', picker.startDate.format('YYYY-MM-DD'))
+                .set('endtime', picker.endDate.format('YYYY-MM-DD'));
+            map.refreshData();
         });
-    });
-    /* initialize fetcher and fetch starting data */
-    window.fetcher = new Fetcher(); //new Proxy()); //new Proxy());
-    fetcher.fetchData({
-        starttime: moment().format('YYYY-MM-DD'),
-        endtime: moment().add(1, 'days').format('YYYY-MM-DD')
-    }).then((data) => {
-        /* GeoJSON object, type: FeatureCollection */
-        map.setData(data);
     });
 }
 
@@ -79,5 +53,33 @@ $(function () {
 
 /* SLIDER initialization */
 $(function () {
-    $("#magnitude-range").slider({});
+    $("#magnitude-range")
+        .slider({})
+        .on('slideStop', (evt) => {
+            map.fetcher
+                .set('minmagnitude', evt.value[0])
+                .set('maxmagnitude', evt.value[1]);
+            map.refreshData();
+
+        });
 });
+
+
+/* called to refresh the list of eq.kes */
+function refreshEarthquakesList() {
+    let visibleEarthquakes = map.getVisibleEarthquakes();
+    $('#list-panel').empty();
+    $.each(visibleEarthquakes, (i, earthquake) => {
+        let listElement = getListElement(earthquake);
+        listElement.click(() => {
+            let dataLayer = map._map.data;
+
+            map._selectedFeature = earthquake;
+            dataLayer.revertStyle();
+            dataLayer.overrideStyle(earthquake, {
+                icon: '/src/assets/selected-feature.png'
+            });
+        });
+        $('#list-panel').append(listElement);
+    });
+}
