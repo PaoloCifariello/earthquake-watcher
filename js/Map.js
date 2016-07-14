@@ -71,10 +71,6 @@ class Map {
         this._map.addListener(eventName, fn);
     }
 
-    refresh() {
-        this.setVisualizationType(this._visualizationType);
-    }
-
     _initializeHeatMap() {
         let heatmapData = [];
         this._map.data.forEach((earthquake) => {

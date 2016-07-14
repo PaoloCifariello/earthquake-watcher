@@ -15,9 +15,14 @@ function initMap() {
         $.each(visibleEarthquakes, (i, earthquake) => {
             let listElement = getListElement(earthquake);
             listElement.click(() => {
-                let position = earthquake.getGeometry().get();
+                let position = earthquake.getGeometry().get(),
+                    dataLayer = map._map.data;
+
                 map._selectedFeature = earthquake;
-                map.refresh();
+                dataLayer.revertStyle();
+                dataLayer.overrideStyle(earthquake, {
+                    icon: '/src/assets/selected-feature.png'
+                });
             });
             $('#list-panel').append(listElement);
         });
