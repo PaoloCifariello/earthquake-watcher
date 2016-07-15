@@ -60,14 +60,22 @@ body {
 
 #options-panel {}
 
-#list-panel {
-    height: 100%;
+#list-panel-header {
+    min-height: 40px;
+    max-height: 40px;
+    border-radius: 4px 4px 0 0;
 }
 
+#list-panel {
+    overflow: auto;
+    margin-bottom: 0px !important;
+    border-radius: 0 0 4px 4px;
+}
+
+#earthquake-list-container {}
+
 #earthquake-list {
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
+    padding: 0;
 }
 
 #radio-options {
