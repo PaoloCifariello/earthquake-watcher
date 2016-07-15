@@ -52,23 +52,46 @@
                 <div class="panel-heading">Options</div>
                 <div id="options-panel-body" class="panel-body">
                     <div id="radio-options" data-toggle="buttons">
-                        <div class="col-xs-12 radio-container"> <span class="option-title">Visualization style:</span>
-                            <br>
-                            <div class="btn-group radio-inner-container" data-toggle="buttons">
+                        <div class="col-xs-12 radio-container flex-column">
+                            <span class="option-title">Visualization style:</span>
+                            <div class="btn-group inline-flex" data-toggle="buttons">
                                 <label class="btn active">
-                                    <input type="radio" name='visualization-type' value="markersLayer" checked> <i class="fa fa-circle-o fa-2x"></i> <i class="fa fa-check-circle-o fa-2x check-image"></i> <span class="option-label"> Markers</span> </label>
+                                    <input type="radio" name='visualization-type' value="markersLayer" checked>
+                                    <i class="fa fa-circle-o fa-2x check-image"></i>
+                                    <i class="fa fa-check-circle-o fa-2x check-image"></i>
+                                    <span class="option-label"> Markers</span>
+                                </label>
                                 <label class="btn active">
-                                    <input type="radio" name='visualization-type' value="circleLayer"> <i class="fa fa-circle-o fa-2x"></i> <i class="fa fa-check-circle-o fa-2x check-image"></i> <span class="option-label"> Circle</span> </label>
+                                    <input type="radio" name='visualization-type' value="circleLayer">
+                                    <i class="fa fa-circle-o fa-2x check-image"></i>
+                                    <i class="fa fa-check-circle-o fa-2x check-image"></i>
+                                    <span class="option-label"> Circle</span>
+                                </label>
                                 <label class="btn active">
-                                    <input type="radio" name='visualization-type' value="heatMapLayer"> <i class="fa fa-circle-o fa-2x"></i> <i class="fa fa-check-circle-o fa-2x check-image"></i> <span class="option-label"> Heatmap</span> </label>
+                                    <input type="radio" name='visualization-type' value="heatMapLayer">
+                                    <i class="fa fa-circle-o fa-2x check-image"></i>
+                                    <i class="fa fa-check-circle-o fa-2x check-image"></i>
+                                    <span class="option-label"> Heatmap</span>
+                                </label>
                             </div>
                         </div>
                     </div>
-                    <div id="date-range-options"> <span class="option-title">Date range:</span>
-                        <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%"> <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp; <span></span> <b class="caret"></b> </div>
+                    <div id="date-range-options" class="flex-column">
+                        <span class="option-title">Date range:</span>
+                        <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                            <span></span>
+                            <b class="caret"></b>
+                        </div>
                     </div>
-                    <div id="magnitude-range-option"> <span class="option-title">Magnitude range:</span> <b>-1</b>
-                        <input id="magnitude-range" type="text" class="span2" value="" data-slider-min="-1" data-slider-max="10" data-slider-step="0.2" data-slider-value="[2,4]" /> <b>10</b> </div>
+                    <div id="magnitude-range-option" class="flex-column">
+                        <span class="option-title">Magnitude range:</span>
+                        <div>
+                            <b class="standard-margin-right">-1</b>
+                            <input id="magnitude-range" type="text" class="span2" value="" data-slider-min="-1" data-slider-max="10" data-slider-step="0.2" data-slider-value="[2,4]" />
+                            <b class="standard-margin-left"> 10</b>
+                        </div>
+                    </div>
                 </div>
             </div>
 
