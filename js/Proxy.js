@@ -4,6 +4,20 @@ class Proxy {
         return data;
     }
 }
+
+let emptyData = {
+    "type": "FeatureCollection",
+    "metadata": {
+        "generated": 1467295593000,
+        "url": "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-01-01&endtime=2016-01-02",
+        "title": "USGS Earthquakes",
+        "status": 200,
+        "api": "1.5.2",
+        "count": 253
+    },
+    "features": []
+};
+
 let data = {
     "type": "FeatureCollection",
     "metadata": {
