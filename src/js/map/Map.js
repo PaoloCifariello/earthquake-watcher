@@ -96,6 +96,10 @@ class Map {
     /* called to refresh the list of eq.kes */
     _refreshEarthquakesList() {
         let visibleEarthquakes = this.getVisibleEarthquakes();
+        visibleEarthquakes.sort((a, b) => {
+            return parseFloat(b.getProperty('mag')) - parseFloat(a.getProperty('mag'));
+        });
+
         $('#earthquake-list').empty();
 
         $.each(visibleEarthquakes, (i, earthquake) => {

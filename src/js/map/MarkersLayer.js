@@ -8,7 +8,9 @@ class MarkersLayer {
         this._initialize();
     }
 
-    _initialize() {}
+    _initialize() {
+        this._layer.setStyle((earthquake) => this._getMarkersStyle(earthquake));
+    }
 
     addData(data) {
         return this._layer.addGeoJson(data);
@@ -16,7 +18,7 @@ class MarkersLayer {
 
     setSelected(earthquakeId) {
         let earthquake = this._layer.getFeatureById(earthquakeId);
-        
+
         this._layer.revertStyle();
         this._layer.overrideStyle(earthquake, {
             icon: '/src/assets/selected-feature.png'
@@ -35,5 +37,12 @@ class MarkersLayer {
     }
     disable() {
         this._layer.setMap(null);
+    }
+
+    _getMarkersStyle(feature) {
+        let magnitude = feature.getProperty('mag');
+        return {
+            zIndex: Math.floor(magnitude * 10)
+        };
     }
 }
