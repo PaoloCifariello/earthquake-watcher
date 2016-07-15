@@ -14,6 +14,15 @@ class MarkersLayer {
         return this._layer.addGeoJson(data);
     }
 
+    setSelected(earthquakeId) {
+        let earthquake = this._layer.getFeatureById(earthquakeId);
+        
+        this._layer.revertStyle();
+        this._layer.overrideStyle(earthquake, {
+            icon: '/src/assets/selected-feature.png'
+        });
+    }
+
     empty() {
         let dataLayer = this._layer;
         dataLayer.forEach((feature) => {
