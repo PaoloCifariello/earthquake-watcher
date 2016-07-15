@@ -109,13 +109,9 @@ class Map {
             });
 
             listElement.click(() => {
-                let dataLayer = this._layers.markersLayer._layer;
-
                 this._selectedFeature = earthquake;
-                dataLayer.revertStyle();
-                dataLayer.overrideStyle(earthquake, {
-                    icon: '/src/assets/selected-feature.png'
-                });
+
+                $.each(this._layers, (layerName, layer) => layer.setSelected(this._selectedFeature.getId()));
             });
 
             $('#earthquake-list').append(listElement);

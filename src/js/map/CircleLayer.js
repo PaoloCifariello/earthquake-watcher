@@ -12,27 +12,29 @@ class CircleLayer {
         this._layer.setStyle(this._getCircleStyle());
     }
 
-    /* set circle style map visualization */
-    _getCircleStyle() {
-        return (feature) => {
-            var magnitude = feature.getProperty('mag');
-            return {
-                icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    fillColor: 'red',
-                    fillOpacity: .2,
-                    scale: Math.pow(2, magnitude) / 2,
-                    strokeColor: 'white',
-                    strokeWeight: .5
-                },
-                scale: magnitude
-            };
-        };
-    }
-
     addData(data) {
         return this._layer.addGeoJson(data);
     }
+
+
+    setSelected(earthquakeId) {
+        let earthquake = this._layer.getFeatureById(earthquakeId),
+            magnitude = earthquake.getProperty('mag');
+
+        this._layer.revertStyle();
+        this._layer.overrideStyle(earthquake, {
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                fillColor: 'green',
+                fillOpacity: .9,
+                scale: Math.pow(2, magnitude),
+                strokeColor: 'black',
+                strokeWeight: 2
+            },
+            scale: magnitude
+        });
+    }
+
 
     empty() {
         let dataLayer = this._layer;
@@ -47,5 +49,23 @@ class CircleLayer {
 
     disable() {
         this._layer.setMap(null);
+    }
+
+    /* set circle style map visualization */
+    _getCircleStyle() {
+        return (feature) => {
+            var magnitude = feature.getProperty('mag');
+            return {
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    fillColor: 'red',
+                    fillOpacity: .6,
+                    scale: Math.pow(2, magnitude),
+                    strokeColor: 'black',
+                    strokeWeight: .5
+                },
+                scale: magnitude
+            };
+        };
     }
 }

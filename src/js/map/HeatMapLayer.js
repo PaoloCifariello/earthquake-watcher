@@ -29,6 +29,8 @@ class HeatMapLayer {
         this._layer.set('data', dataArray);
     }
 
+    setSelected(earthquake) {}
+
     empty() {
         let dataArray = new google.maps.MVCArray([]);
         this._layer.set('data', dataArray);
