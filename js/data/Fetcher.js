@@ -1,7 +1,6 @@
 class Fetcher {
-
-    constructor(proxy) {
-        this._proxy = proxy || null;
+    constructor() {
+        this._proxy = new Proxy();
         this._options = {
             starttime: moment().format('YYYY-MM-DD'),
             endtime: moment().add(1, 'days').format('YYYY-MM-DD')
@@ -12,22 +11,36 @@ class Fetcher {
 
     fetchData() {
         let promiseToReturn = null;
-        if (this._proxy) {
+        switch (EQ.proxy) {
+        case 'test':
             promiseToReturn = new Promise((resolve, reject) => {
                 resolve(this._proxy.getData());
             });
-        } else {
-            let url = this._url;
-            $.each(this._options, (key, value) => {
-                url += '&' + key + '=' + value;
+            break;
+        case 'real':
+            promiseToReturn = this._getFromAPI();
+            break;
+        case 'empty':
+        default:
+            promiseToReturn = new Promise((resolve, reject) => {
+                resolve(this._proxy.getEmptyData());
             });
-            promiseToReturn = $.getJSON(url);
+            break;
         }
+
         return promiseToReturn;
     }
 
     set(dataKey, data) {
         this._options[dataKey] = data;
         return this;
+    }
+
+    _getFromAPI() {
+        let url = this._url;
+        $.each(this._options, (key, value) => {
+            url += '&' + key + '=' + value;
+        });
+        return $.getJSON(url);
     }
 }

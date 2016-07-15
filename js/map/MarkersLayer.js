@@ -8,17 +8,7 @@ class MarkersLayer {
         this._initialize();
     }
 
-    _initialize() {
-        this._layer.setStyle(this._getMarkersStyle());
-    }
-
-    _getMarkersStyle() {
-        return (feature) => {
-            if (map._selectedFeature && feature == map._selectedFeature) return {
-                icon: '/src/assets/selected-feature.png'
-            };
-        };
-    }
+    _initialize() {}
 
     addData(data) {
         return this._layer.addGeoJson(data);
@@ -35,6 +25,6 @@ class MarkersLayer {
         this._layer.setMap(this._map);
     }
     disable() {
-    this._layer.setMap(null);
-}
+        this._layer.setMap(null);
+    }
 }

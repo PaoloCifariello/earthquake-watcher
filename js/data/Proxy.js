@@ -1,7 +1,9 @@
 class Proxy {
-    constructor() {}
     getData() {
         return data;
+    }
+    getEmptyData() {
+        return emptyData;
     }
 }
 
