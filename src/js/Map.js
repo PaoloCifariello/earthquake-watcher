@@ -2,11 +2,14 @@ class Map {
     constructor(zoom, center) {
         this._map = null;
 
+        this._tectonicsLayer = null
+
         /* map layers */
-        this._tectonicsLayer = null;
-        this._markersLayer = null;
-        this._circleLayer = null;
-        this._heatMapLayer = null;
+        this._layers = {
+            markersLayer: null,
+            circleLayer: null,
+            heatMapLayer: null
+        };
 
         this._zoom = zoom;
         this._visualizationType = "markers";
@@ -27,51 +30,43 @@ class Map {
             mapTypeId: google.maps.MapTypeId.TERRAIN
         });
 
-        this._tectonicsLayer = new TectonicLayer(this._map);
-        this._markersLayer = new MarkersLayer(this._map);
-        this._circleLayer = new CircleLayer(this._map);
-        this._heatMapLayer = new HeatMapLayer(this._map);
-        this.setVisualizationType('markers');
+        this.tectonicsLayer = new TectonicLayer(this._map);
+
+        this._layers.markersLayer = new MarkersLayer(this._map);
+        this._layers.circleLayer = new CircleLayer(this._map);
+        this._layers.heatMapLayer = new HeatMapLayer(this._map);
+
+        this.setVisualizationType('markersLayer');
     }
 
     setData(data) {
-        this._markersLayer.empty();
-        this._circleLayer.empty();
-        this._heatMapLayer.empty();
+        $.each(this._layers, (i, layer) => {
+            layer.empty();
+        });
 
         /* need to take normalized data from Google Maps API to avoid 
         /* further steps during HeatMapCreation */
-        let normalizedData = this._markersLayer.addData(data);
-        this._circleLayer.addData(data);
-        this._heatMapLayer.addData(normalizedData);
+        let normalizedData = this._layers.markersLayer.addData(data);
+        this._layers.circleLayer.addData(data);
+        this._layers.heatMapLayer.addData(normalizedData);
 
         google.maps.event.trigger(this._map, 'bounds_changed');
     }
 
     setVisualizationType(visualizationType) {
         this._visualizationType = visualizationType;
-        switch (this._visualizationType) {
-        case "markers":
-            this._heatMapLayer.disable();
-            this._circleLayer.disable();
-            this._markersLayer.enable();
-            break;
-        case "circle":
-            this._heatMapLayer.disable();
-            this._markersLayer.disable();
-            this._circleLayer.enable();
-            break;
-        case "heatmap":
-            this._markersLayer.disable();
-            this._circleLayer.disable();
-            this._heatMapLayer.enable();
-            break;
-        }
+
+        $.each(this._layers, (layerName, layer) => {
+            if (layerName === visualizationType)
+                layer.enable();
+            else
+                layer.disable();
+        });
     }
 
     getVisibleEarthquakes() {
         let visibleEarthquakes = [];
-        this._markersLayer._layer.forEach((earthquake) => {
+        this._layers.markersLayer._layer.forEach((earthquake) => {
             let position = earthquake.getGeometry().get(),
                 bounds = this._map.getBounds();
             if (bounds && bounds.contains(position)) visibleEarthquakes.push(earthquake);
