@@ -11,13 +11,15 @@ class Map {
             heatMapLayer: null
         };
 
+        this._data = {};
+
         this._zoom = zoom;
         this._visualizationType = "markers";
         /* initial center point */
         this._center = center;
 
         this._selectedFeature = null;
-        this.fetcher = new Fetcher(); //new Proxy()); //new Proxy());
+        this.fetcher = new Fetcher();
     }
 
     initializeMap() {
@@ -37,6 +39,9 @@ class Map {
         this._layers.heatMapLayer = new HeatMapLayer(this._map);
 
         this.setVisualizationType('markersLayer');
+
+        /* refresh list when bounds change, also set handler for green marker */
+        this._map.addListener('bounds_changed', () => this._refreshEarthquakesList());
     }
 
     setData(data) {
@@ -49,6 +54,11 @@ class Map {
         let normalizedData = this._layers.markersLayer.addData(data);
         this._layers.circleLayer.addData(data);
         this._layers.heatMapLayer.addData(normalizedData);
+
+        this._data = {};
+        $.each(data.features, (i, earthquake) => {
+            this._data[earthquake.id] = earthquake;
+        })
 
         google.maps.event.trigger(this._map, 'bounds_changed');
     }
@@ -74,10 +84,6 @@ class Map {
         return visibleEarthquakes;
     }
 
-    on(eventName, fn) {
-        this._map.addListener(eventName, fn);
-    }
-
     refreshData() {
         this.fetcher
             .fetchData()
@@ -85,6 +91,45 @@ class Map {
                 /* GeoJSON object, type: FeatureCollection */
                 this.setData(data);
             });
+    }
+
+    /* called to refresh the list of eq.kes */
+    _refreshEarthquakesList() {
+        let visibleEarthquakes = this.getVisibleEarthquakes();
+        $('#earthquake-list').empty();
+
+        $.each(visibleEarthquakes, (i, earthquake) => {
+            let id = earthquake.getId();
+            let listElement = this._getListElement({
+                title: earthquake.getProperty('title'),
+                id: id,
+                magnitude: earthquake.getProperty('mag'),
+                depth: this._data[id].geometry.coordinates[2], // depth in km
+                date: moment.unix(earthquake.getProperty('time') / 1000).format('DD-MM-DD hh:mm')
+            });
+
+            listElement.click(() => {
+                let dataLayer = this._layers.markersLayer._layer;
+
+                this._selectedFeature = earthquake;
+                dataLayer.revertStyle();
+                dataLayer.overrideStyle(earthquake, {
+                    icon: '/src/assets/selected-feature.png'
+                });
+            });
+
+            $('#earthquake-list').append(listElement);
+        });
+    }
+
+    _getListElement(options) {
+        return $('<a href="#" class="list-group-item"> ' +
+            '<b>' + options.title + '</b><br>' +
+            (EQ.debug ? options.id + '<br>' : '') +
+            'Magnitude ' + options.magnitude + '<br>' +
+            'Depth ' + options.depth + '<br>' +
+            'Date ' + options.date
+        );
     }
 
 }
