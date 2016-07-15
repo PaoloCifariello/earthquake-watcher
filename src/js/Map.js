@@ -12,7 +12,7 @@ class Map {
         this._data = [];
         this._selectedFeature = null;
         this._currentLabel = null;
-        this.fetcher = new Fetcher(); //new Proxy()); //new Proxy());
+        this.fetcher = new Fetcher(new Proxy()); //new Proxy());
     }
 
     initializeMap() {

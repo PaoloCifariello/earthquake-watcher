@@ -11,7 +11,6 @@ function initMap() {
     /* refresh list when bounds change, also set handler for green marker */
     map.on('bounds_changed', refreshEarthquakesList);
     map.refreshData();
-
     /* Date range picker */
     $(function () {
         function cb(start, end) {
@@ -38,10 +37,6 @@ function initMap() {
 }
 
 
-/* earthquake info for list */
-function getListElement(earthquake) {
-    return $('<a href="#" class="list-group-item"> ' + earthquake.getId() + '<br>Magnitude ' + earthquake.getProperty('mag') + '<br>Date ' + moment.unix(earthquake.getProperty('time') / 1000).format('DD-MM-DD') + '</a>');
-}
 
 /* set handler for visualization type -> list */
 $(function () {
@@ -68,9 +63,17 @@ $(function () {
 /* called to refresh the list of eq.kes */
 function refreshEarthquakesList() {
     let visibleEarthquakes = map.getVisibleEarthquakes();
-    $('#list-panel').empty();
+    $('#earthquake-list').empty();
     $.each(visibleEarthquakes, (i, earthquake) => {
-        let listElement = getListElement(earthquake);
+        let listElement = $('<a href="#" class="list-group-item"> ' +
+            earthquake.getId() +
+            '<br>Magnitude ' +
+            earthquake.getProperty('mag') +
+            '<br>Date ' +
+            moment.unix(earthquake.getProperty('time') / 1000).format('DD-MM-DD') +
+            '</a>'
+        );
+
         listElement.click(() => {
             let dataLayer = map._map.data;
 
@@ -80,6 +83,6 @@ function refreshEarthquakesList() {
                 icon: '/src/assets/selected-feature.png'
             });
         });
-        $('#list-panel').append(listElement);
+        $('#earthquake-list').append(listElement);
     });
 }

@@ -4,18 +4,23 @@ html {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 95%;
+    height: 100%;
     overflow: hidden;
 }
 
 #app-body {
-    width: 98%;
-    height: 94%;
+    height: 100%;
     align-content: center;
     margin: 10px 15px 10px 15px;
     display: flex;
     text-align: center;
+}
+
+#app-footer {
+    margin: 10px 10px 10px 10px;
 }
 
 #map {
@@ -29,8 +34,8 @@ body {
 #right-panel {
     display: flex;
     flex-direction: column;
-    margin: 0px 10px 0px 8px;
-    width: 32%;
+    margin: 10px 10px 10px 10px;
+    width: 34%;
     height: 100%;
     vertical-align: top;
 }
@@ -49,10 +54,19 @@ body {
     top: 0;
 }
 
+#options-panel-body {
+    padding: 10px !important;
+}
+
 #options-panel {}
 
 #list-panel {
-    max-height: 416px;
+    height: 100%;
+}
+
+#earthquake-list {
+    display: flex;
+    flex-direction: column;
     overflow-y: scroll;
 }
 
@@ -65,6 +79,18 @@ body {
     border-radius: 0px;
 }
 
+.radio-container {
+    padding: 0px !important;
+}
+
+.radio-inner-container {
+    display: inline-flex;
+}
+
 .option-label {
-    font-size: 1.2em;
+    font-size: 1.2em !important;
+}
+
+.check-image {
+    /*    font-size: 1.5em !important;*/
 }
