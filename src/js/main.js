@@ -10,8 +10,9 @@ function initMap() {
     map.initializeMap();
     /* refresh list when bounds change, also set handler for green marker */
     map.on('bounds_changed', refreshEarthquakesList);
+    /* first time fetch */
     map.refreshData();
-    /* Date range picker */
+    /* Date range picker initialization */
     $(function () {
         function cb(start, end) {
             $('#reportrange span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
@@ -46,7 +47,7 @@ $(function () {
     });
 });
 
-/* SLIDER initialization */
+/* slider initialization */
 $(function () {
     $("#magnitude-range")
         .slider({})
@@ -58,7 +59,6 @@ $(function () {
 
         });
 });
-
 
 /* called to refresh the list of eq.kes */
 function refreshEarthquakesList() {

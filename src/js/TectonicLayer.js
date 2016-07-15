@@ -28,6 +28,7 @@ class TectonicLayer {
 
         this._layer.addListener('mouseout', (event) => {
             this._currentLabel = null;
+            this._layer.revertStyle();
             $('#plate-tooltip').html("");
         });
 
