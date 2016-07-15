@@ -75,7 +75,7 @@ function refreshEarthquakesList() {
         );
 
         listElement.click(() => {
-            let dataLayer = map._map.data;
+            let dataLayer = map._markersLayer._layer;
 
             map._selectedFeature = earthquake;
             dataLayer.revertStyle();
