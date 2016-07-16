@@ -106,6 +106,8 @@ class Map {
             let id = earthquake.getId();
             let listElement = this._getListElement({
                 title: earthquake.getProperty('title'),
+                index: i + 1,
+                total: visibleEarthquakes.length,
                 id: id,
                 magnitude: earthquake.getProperty('mag'),
                 depth: this._data[id].geometry.coordinates[2], // depth in km
@@ -124,7 +126,7 @@ class Map {
 
     _getListElement(options) {
         return $('<a href="#" class="list-group-item"> ' +
-            '<b>' + options.title + '</b><br>' +
+            '<b>' + options.index + '/' + options.total + ' - ' + options.title + '</b><br>' +
             (EQ.debug ? options.id + '<br>' : '') +
             'Magnitude ' + options.magnitude + '<br>' +
             'Depth ' + options.depth + '<br>' +

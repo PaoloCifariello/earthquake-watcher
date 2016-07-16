@@ -2,8 +2,8 @@ class HeatMapLayer {
     constructor(map) {
         this._map = map;
         this._layer = new google.maps.visualization.HeatmapLayer({
-            //            data: heatmapData,
             dissipating: false,
+            opacity: 0.6,
             map: null
         });
 
