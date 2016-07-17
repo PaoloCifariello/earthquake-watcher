@@ -12,6 +12,7 @@ class Map {
         };
 
         this._data = {};
+        this._visibleEarthquakes = [];
 
         this._zoom = zoom;
         this._visualizationType = "markers";
@@ -32,7 +33,7 @@ class Map {
             mapTypeId: google.maps.MapTypeId.TERRAIN
         });
 
-        this.tectonicsLayer = new TectonicLayer(this._map);
+        this._tectonicsLayer = new TectonicLayer(this._map);
 
         this._layers.markersLayer = new MarkersLayer(this._map);
         this._layers.circleLayer = new CircleLayer(this._map);
@@ -95,23 +96,23 @@ class Map {
 
     /* called to refresh the list of eq.kes */
     _refreshEarthquakesList() {
-        let visibleEarthquakes = this.getVisibleEarthquakes();
-        visibleEarthquakes.sort((a, b) => {
+        this._visibleEarthquakes = this.getVisibleEarthquakes();
+        this._visibleEarthquakes.sort((a, b) => {
             return parseFloat(b.getProperty('mag')) - parseFloat(a.getProperty('mag'));
         });
 
         $('#earthquake-list').empty();
 
-        $.each(visibleEarthquakes, (i, earthquake) => {
+        $.each(this._visibleEarthquakes, (i, earthquake) => {
             let id = earthquake.getId();
             let listElement = this._getListElement({
                 title: earthquake.getProperty('title'),
                 index: i + 1,
-                total: visibleEarthquakes.length,
+                total: this._visibleEarthquakes.length,
                 id: id,
                 magnitude: earthquake.getProperty('mag'),
                 depth: this._data[id].geometry.coordinates[2], // depth in km
-                date: moment.unix(earthquake.getProperty('time') / 1000).format('DD-MM-DD hh:mm')
+                date: moment(earthquake.getProperty('time')).format('D-M-YYYY HH:mm')
             });
 
             listElement.click(() => {
@@ -122,6 +123,8 @@ class Map {
 
             $('#earthquake-list').append(listElement);
         });
+
+        $('#earthquake-number-badge').html(this._visibleEarthquakes.length);
     }
 
     _getListElement(options) {
@@ -130,7 +133,7 @@ class Map {
             (EQ.debug ? options.id + '<br>' : '') +
             'Magnitude ' + options.magnitude + '<br>' +
             'Depth ' + options.depth + '<br>' +
-            'Date ' + options.date
+            'Date ' + options.date + '<br>'
         );
     }
 
