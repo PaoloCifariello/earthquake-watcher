@@ -7,6 +7,7 @@ window.EQ = {
      * 'real' -> real data
      */
     map: null,
+    graphManager: null
 };
 
 $(function () {
@@ -46,6 +47,9 @@ $(function () {
             .set('endtime', picker.endDate.format('YYYY-MM-DD'));
         EQ.map.refreshData();
     });
+
+    EQ.graphManager = new GraphManager();
+    $('#show-timeline').click(() => EQ.graphManager.drawGraph(EQ.map._visibleEarthquakes));
 });
 
 /* initialization when Gmaps is loaded */

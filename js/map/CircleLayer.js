@@ -79,7 +79,7 @@ class CircleLayer {
                 strokeWeight: 0.5,
                 strokeColor: 'black',
                 fillColor: color,
-                fillOpacity: 3.5 / feature.getProperty('mag'),
+                fillOpacity: 0.6,
                 // while an exponent would technically be correct, quadratic looks nicer
                 scale: Math.log(magnitude + 1) * magnitude * 4
                     //                scale: Math.pow(2, magnitude)

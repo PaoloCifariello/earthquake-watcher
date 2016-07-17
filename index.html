@@ -9,12 +9,20 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!-- Optional Bootstrap theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!--  NVD3  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.4/nv.d3.css" crossorigin="anonymous">
     <!-- Slider CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.1.0/css/bootstrap-slider.min.css" crossorigin="anonymous">
     <!-- Web App CSS -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/toggle.css">
     <!-- CODE -->
+    <!--  D3  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js" crossorigin="anonymous"></script>
+    <!--  DSimple  -->
+    <!--    <script src="http://dimplejs.org/dist/dimple.v2.2.0.min.js"></script>-->
+    <!--  NVD3  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.4/nv.d3.js" crossorigin="anonymous"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <!-- Bootstrap -->
@@ -31,6 +39,7 @@
     <!-- Slider JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.1.0/bootstrap-slider.min.js" crossorigin="anonymous"></script>
     <!-- Web App JS -->
+    <script src="js/graph/GraphManager.js"></script>
     <script src="js/map/TectonicLayer.js"></script>
     <script src="js/map/MarkersLayer.js"></script>
     <script src="js/map/CircleLayer.js"></script>
@@ -92,10 +101,18 @@
                             <b class="standard-margin-left"> 10</b>
                         </div>
                     </div>
+                    <br>
+                    <div id="shon-info-option" class="flex-column">
+                        <div>
+                            <button id="show-timeline" class="btn btn-primary" type="button" data-toggle="modal" data-target="#earthquake-timeline">
+                                Show area timeline
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div id="list-panel-header" class="list-group-item active">Earthquakes in this area</div>
+            <div id="list-panel-header" class="list-group-item active">Earthquakes in this area <span id="earthquake-number-badge" class="badge"></span></div>
             <div id="list-panel" class="panel panel-primary">
                 <div id="earthquake-list" class="list-group clearfix"></div>
             </div>
@@ -105,6 +122,13 @@
     </div>
     <div id="app-footer"></div>
     <div id="plate-tooltip" title="regular tooltip"></div>
+    <div id="earthquake-timeline" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg width-height-90-80">
+            <div id="chart" class="modal-content">
+                <svg id="chart-svg"></svg>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

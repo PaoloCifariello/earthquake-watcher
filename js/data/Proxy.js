@@ -1,13 +1,25 @@
 class Proxy {
-    getData() {
-        return data;
+    constructor() {
+        this._data = null;
+        this._emptyData = emptyData;
     }
+
+    getData() {
+        return this._data ?
+            new Promise((resolve, reject) => {
+                resolve(this._data);
+            }) :
+            $.getJSON('/src/assets/proxy-data.json');
+    }
+
     getEmptyData() {
-        return emptyData;
+        return new Promise((resolve, reject) => {
+            resolve(this._emptyData);
+        });
     }
 }
 
-let emptyData = {
+var emptyData = {
     "type": "FeatureCollection",
     "metadata": {
         "generated": 1467295593000,
