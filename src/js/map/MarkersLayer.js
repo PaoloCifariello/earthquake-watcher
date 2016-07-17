@@ -21,7 +21,8 @@ class MarkersLayer {
 
         this._layer.revertStyle();
         this._layer.overrideStyle(earthquake, {
-            icon: '/src/assets/selected-feature.png'
+            icon: '/src/assets/selected-feature.png',
+            zIndex: 200
         });
     }
 
