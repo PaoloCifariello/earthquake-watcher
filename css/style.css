@@ -157,6 +157,14 @@ body {
     cursor: pointer;
 }
 
+.earthquake-list-item-selected {
+    background-color: rgba(122, 163, 204, 0.3)
+}
+
+.earthquake-list-item:hover {
+    background-color: rgba(122, 163, 204, 0.3)
+}
+
 .earthquake-list-item-header {
     margin-bottom: 10px;
     text-align: center;
