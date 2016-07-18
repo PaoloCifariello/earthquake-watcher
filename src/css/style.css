@@ -143,6 +143,25 @@ body {
 }
 
 .width-height-90-80 {
-    widows: 90%;
+    width: 90%;
     height: 80%;
+}
+
+.width-height-100 {
+    width: 100%;
+    height: 100%;
+}
+
+.earthquake-list-item {
+    display: flex;
+    cursor: pointer;
+}
+
+.earthquake-list-item-header {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.earthquake-list-item-body {
+    text-align: left;
 }

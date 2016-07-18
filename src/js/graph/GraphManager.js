@@ -17,19 +17,20 @@ class GraphManager {
 
         nv.addGraph(() => {
             var chart = nv.models.scatterChart()
-                //                .showDistX(true)
-                //                .showDistY(true)
                 .useVoronoi(true)
                 .color(d3.scale.category10().range())
                 .duration(300);
 
+            //            chart.legendPosition('right');
             chart.tooltip.contentGenerator(this._getTooltip);
-            chart.dispatch.on('renderEnd', function () {});
+            //chart.dispatch.on('renderEnd', function () {});
 
             /* X axis */
+            chart.showXAxis(true);
             chart.xAxis.tickFormat(function (d) {
                 return d3.time.format('%d-%m, %H:%M:%S')(new Date(d));
             });
+            chart.xAxis.showMaxMin(false);
 
             /* Y axis */
             chart.forceY([-1, 10]);
@@ -42,7 +43,6 @@ class GraphManager {
             nv.utils.windowResize(chart.update);
 
             chart.dispatch.on('stateChange', function (e) {
-                console.log(e);
                 ('New State:', JSON.stringify(e));
             });
 
@@ -53,14 +53,23 @@ class GraphManager {
     }
 
     _getTooltip(data) {
+        console.log(data);
         let earthquake = data.point.earthquake,
+            title = earthquake.getProperty('title'),
+            date = moment(earthquake.getProperty('time')).format('D-M-YYYY HH:mm'),
             point = earthquake.getGeometry().get(),
             latitude = point.lat(),
             longitude = point.lng(),
-            magnitude = earthquake.getProperty('mag');
+            magnitude = earthquake.getProperty('mag'),
+            plate = data.series[0].key;
 
-        let tooltip = $('<div>Position: (' + latitude + ', ' + longitude + ')<br>' +
-            'Magnitude: ' + magnitude + '</div>');
+        console.log(date);
+        let tooltip = $('<div><b>' + title + '</b><br>' +
+            plate + '</br>' +
+            'Position: (' + latitude + ', ' + longitude + ')<br>' +
+            'Magnitude: ' + magnitude + '<br>' +
+            'Date: ' + date + '<br></div>');
+
 
         return tooltip.html();
     }

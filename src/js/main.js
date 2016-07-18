@@ -43,8 +43,8 @@ $(function () {
     /* callback when date range changes */
     $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
         EQ.map.fetcher
-            .set('starttime', picker.startDate.format('YYYY-MM-DD'))
-            .set('endtime', picker.endDate.format('YYYY-MM-DD'));
+            .set('starttime', picker.startDate.format('YYYY-MM-DD') + ' 00:00:00')
+            .set('endtime', picker.endDate.format('YYYY-MM-DD') + ' 23:59:59');
         EQ.map.refreshData();
     });
 
