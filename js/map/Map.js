@@ -43,9 +43,6 @@ class Map {
 
         /* refresh list when bounds change, also set handler for green marker */
         this._map.addListener('bounds_changed', () => this._refreshEarthquakesList());
-        this._map.addListener('click', () => {
-            console.log(arguments);
-        });
     }
 
     setData(data) {
