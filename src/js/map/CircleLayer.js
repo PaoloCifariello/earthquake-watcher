@@ -10,6 +10,9 @@ class CircleLayer {
 
     _initialize() {
         this._layer.setStyle((earthquake) => this._getCircleStyle(earthquake));
+        this._layer.addListener('click', (earthquake) => {
+            EQ.map.selectEarthquake(earthquake.feature);
+        })
     }
 
     addData(data) {
@@ -27,10 +30,11 @@ class CircleLayer {
                 path: google.maps.SymbolPath.CIRCLE,
                 fillColor: 'green',
                 fillOpacity: .9,
-                scale: Math.pow(2, magnitude),
+                scale: Math.log(magnitude) * magnitude * 4,
                 strokeColor: 'black',
                 strokeWeight: 2
-            }
+            },
+            zIndex: 500
         });
     }
 

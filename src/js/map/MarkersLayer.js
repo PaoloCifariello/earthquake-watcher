@@ -10,6 +10,9 @@ class MarkersLayer {
 
     _initialize() {
         this._layer.setStyle((earthquake) => this._getMarkersStyle(earthquake));
+        this._layer.addListener('click', (earthquake) => {
+            EQ.map.selectEarthquake(earthquake.feature);
+        })
     }
 
     addData(data) {
@@ -22,7 +25,7 @@ class MarkersLayer {
         this._layer.revertStyle();
         this._layer.overrideStyle(earthquake, {
             icon: '/src/assets/selected-feature.png',
-            zIndex: 200
+            zIndex: 500
         });
     }
 

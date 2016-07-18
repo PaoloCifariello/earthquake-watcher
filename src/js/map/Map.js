@@ -43,6 +43,9 @@ class Map {
 
         /* refresh list when bounds change, also set handler for green marker */
         this._map.addListener('bounds_changed', () => this._refreshEarthquakesList());
+        this._map.addListener('click', () => {
+            console.log(arguments);
+        });
     }
 
     setData(data) {
@@ -117,20 +120,39 @@ class Map {
                 url: earthquake.getProperty('url'),
             });
 
-            listElement.click(() => {
-                this._selectedFeature = earthquake;
-
-                $.each(this._layers, (layerName, layer) => layer.setSelected(this._selectedFeature.getId()));
-            });
-
+            listElement.click(() => this.selectEarthquake(earthquake));
             $('#earthquake-list').append(listElement);
         });
 
         $('#earthquake-number-badge').html(this._visibleEarthquakes.length);
     }
 
+    selectEarthquake(earthquake) {
+        let id = earthquake.getId();
+
+        if (this._selectedFeature) {
+            let oldId = this._selectedFeature.getId();
+            $('#' + oldId).removeClass("earthquake-list-item-selected");
+        }
+
+        let item = $('#' + id);
+        item.addClass("earthquake-list-item-selected");
+
+        this._selectedFeature = earthquake;
+
+        $.each(this._layers, (layerName, layer) => layer.setSelected(this._selectedFeature.getId()));
+
+        let container = $('#list-panel'),
+            scrollTo = item;
+
+        container.scrollTop(0);
+        container.scrollTop(
+            scrollTo.offset().top - container.offset().top
+        );
+    }
+
     _getListElement(options) {
-        return $('<div class="list-group-item earthquake-list-item"> ' +
+        return $('<div id="' + options.id + '" class="list-group-item earthquake-list-item"> ' +
             '<div class="earthquake-list-item-content width-height-100">' +
             '<div class="earthquake-list-item-header width-height-100"><b>' + options.title + '</b></div>' +
             '<div class="earthquake-list-item-body width-height-100">' +

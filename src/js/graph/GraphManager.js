@@ -21,7 +21,7 @@ class GraphManager {
                 .color(d3.scale.category10().range())
                 .duration(300);
 
-            //            chart.legendPosition('right');
+            chart.noData("No data to display");
             chart.tooltip.contentGenerator(this._getTooltip);
             //chart.dispatch.on('renderEnd', function () {});
 
@@ -63,7 +63,6 @@ class GraphManager {
             magnitude = earthquake.getProperty('mag'),
             plate = data.series[0].key;
 
-        console.log(date);
         let tooltip = $('<div><b>' + title + '</b><br>' +
             plate + '</br>' +
             'Position: (' + latitude + ', ' + longitude + ')<br>' +
