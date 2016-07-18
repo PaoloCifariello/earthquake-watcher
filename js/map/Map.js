@@ -106,13 +106,15 @@ class Map {
         $.each(this._visibleEarthquakes, (i, earthquake) => {
             let id = earthquake.getId();
             let listElement = this._getListElement({
+                id: id,
                 title: earthquake.getProperty('title'),
                 index: i + 1,
                 total: this._visibleEarthquakes.length,
-                id: id,
                 magnitude: earthquake.getProperty('mag'),
+                tsunami: (earthquake.getProperty('tsunami') === 1) ? true : false,
                 depth: this._data[id].geometry.coordinates[2], // depth in km
-                date: moment(earthquake.getProperty('time')).format('D-M-YYYY HH:mm')
+                date: moment(earthquake.getProperty('time')).format('D/M/YYYY HH:mm'),
+                url: earthquake.getProperty('url'),
             });
 
             listElement.click(() => {
@@ -128,12 +130,16 @@ class Map {
     }
 
     _getListElement(options) {
-        return $('<a href="#" class="list-group-item"> ' +
-            '<b>' + options.index + '/' + options.total + ' - ' + options.title + '</b><br>' +
-            (EQ.debug ? options.id + '<br>' : '') +
-            'Magnitude ' + options.magnitude + '<br>' +
-            'Depth ' + options.depth + '<br>' +
-            'Date ' + options.date + '<br>'
+        return $('<div class="list-group-item earthquake-list-item"> ' +
+            '<div class="earthquake-list-item-content width-height-100">' +
+            '<div class="earthquake-list-item-header width-height-100"><b>' + options.title + '</b></div>' +
+            '<div class="earthquake-list-item-body width-height-100">' +
+            (EQ.debug ? 'ID: ' + options.id + '<br>' : '') +
+            'Magnitude ' + options.magnitude.toFixed(2) + (options.tsunami ? ', tsunami' : '') + '<br>' +
+            'Depth ' + options.depth.toFixed(2) + ' km<br>' +
+            'Date ' + options.date + '<br>' +
+            '<a target="_blank" href="' + options.url + '">Details</a>' +
+            '</div></div></div>'
         );
     }
 

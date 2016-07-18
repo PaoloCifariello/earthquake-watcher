@@ -81,7 +81,7 @@ class CircleLayer {
                 fillColor: color,
                 fillOpacity: 0.6,
                 // while an exponent would technically be correct, quadratic looks nicer
-                scale: Math.log(magnitude + 1) * magnitude * 4
+                scale: Math.log(magnitude) * magnitude * 4
                     //                scale: Math.pow(2, magnitude)
             },
             zIndex: Math.floor(magnitude * 10)
