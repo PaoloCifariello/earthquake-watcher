@@ -28,7 +28,7 @@ class GraphManager {
             /* X axis */
             chart.showXAxis(true);
             chart.xAxis.tickFormat(function (d) {
-                return d3.time.format('%d-%m, %H:%M:%S')(new Date(d));
+                return d3.time.format('%d-%m, %H:%M')(new Date(d));
             });
             chart.xAxis.showMaxMin(false);
 
@@ -53,7 +53,6 @@ class GraphManager {
     }
 
     _getTooltip(data) {
-        console.log(data);
         let earthquake = data.point.earthquake,
             title = earthquake.getProperty('title'),
             date = moment(earthquake.getProperty('time')).format('D-M-YYYY HH:mm'),
