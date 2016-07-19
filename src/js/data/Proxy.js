@@ -4,7 +4,7 @@ class Proxy {
         this._emptyData = null;
     }
 
-    getData() {
+    getTestData() {
         return this._data ?
             new Promise((resolve, reject) => {
                 resolve(this._data);
