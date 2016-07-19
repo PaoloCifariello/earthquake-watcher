@@ -4,7 +4,8 @@ class HeatMapLayer {
         this._layer = new google.maps.visualization.HeatmapLayer({
             dissipating: false,
             opacity: 0.6,
-            map: null
+            map: null,
+            gradient: ['rgba(0, 255, 255, 0)'].concat(colorbrewer.YlOrRd[6])
         });
 
         this._initialize();
@@ -21,7 +22,7 @@ class HeatMapLayer {
                 magnitude = earthquake.getProperty('mag');
             heatmapData.push({
                 location: position,
-                weight: Math.pow(2, magnitude)
+                weight: Math.pow(magnitude, 2)
             });
         });
 

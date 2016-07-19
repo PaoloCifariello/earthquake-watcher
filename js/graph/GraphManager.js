@@ -33,7 +33,7 @@ class GraphManager {
             chart.xAxis.showMaxMin(false);
 
             /* Y axis */
-            chart.forceY([-1, 10]);
+            chart.forceY([0, 10]);
             chart.yAxis.tickFormat(d3.format('.02f'));
 
             d3.select('#chart-svg')

@@ -34,8 +34,8 @@ $(function () {
     /* Date range picker initialization */
     $('#reportrange').daterangepicker({
         ranges: {
-            'Today': [moment(), moment().add(1, 'days')],
-            'Yesterday': [moment().subtract(1, 'days'), moment()],
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
             'Last 7 Days': [moment().subtract(7, 'days'), moment()]
         }
     }, cb);

@@ -12,7 +12,10 @@ class CircleLayer {
         this._layer.setStyle((earthquake) => this._getCircleStyle(earthquake));
         this._layer.addListener('click', (earthquake) => {
             EQ.map.selectEarthquake(earthquake.feature);
-        })
+        });
+        this._paletteScale = d3.scale.quantize()
+            .domain([0, 10])
+            .range(colorbrewer.YlOrRd[9]);
     }
 
     addData(data) {
@@ -22,17 +25,18 @@ class CircleLayer {
 
     setSelected(earthquakeId) {
         let earthquake = this._layer.getFeatureById(earthquakeId),
-            magnitude = earthquake.getProperty('mag');
+            magnitude = earthquake.getProperty('mag'),
+            color = this._paletteScale(magnitude);
 
         this._layer.revertStyle();
         this._layer.overrideStyle(earthquake, {
             icon: {
                 path: google.maps.SymbolPath.CIRCLE,
-                fillColor: 'green',
-                fillOpacity: .9,
-                scale: Math.log(magnitude) * magnitude * 4,
+                strokeWeight: 2,
                 strokeColor: 'black',
-                strokeWeight: 2
+                fillColor: color,
+                fillOpacity: .9,
+                scale: Math.log(magnitude) * magnitude * 4
             },
             zIndex: 500
         });
@@ -54,28 +58,10 @@ class CircleLayer {
         this._layer.setMap(null);
     }
 
-    _interpolateHsl(min, max, val) {
-        let color = [];
-        for (var i = 0; i < 3; i++) {
-            // Calculate color based on the fraction.
-            color[i] = parseInt((max[i] - min[i]) * val + min[i]);
-        }
-
-        return 'rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ')';
-    }
-
     /* set circle style map visualization */
     _getCircleStyle(feature) {
-        let minHSL = [0, 0, 255],
-            minMag = -1.0,
-            maxHSL = [255, 0, 0],
-            maxMag = 6.0,
-
-            magnitude = feature.getProperty('mag');
-
-        // fraction represents where the value sits between the min and max
-        let fraction = (Math.min(magnitude, maxMag) - minMag) / (maxMag - minMag),
-            color = this._interpolateHsl(minHSL, maxHSL, fraction);
+        let magnitude = feature.getProperty('mag'),
+            color = this._paletteScale(magnitude);
 
         return {
             icon: {
@@ -86,7 +72,6 @@ class CircleLayer {
                 fillOpacity: 0.6,
                 // while an exponent would technically be correct, quadratic looks nicer
                 scale: Math.log(magnitude) * magnitude * 4
-                    //                scale: Math.pow(2, magnitude)
             },
             zIndex: Math.floor(magnitude * 10)
         };
