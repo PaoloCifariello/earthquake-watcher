@@ -13,7 +13,7 @@ class Fetcher {
         let promiseToReturn = null;
         switch (EQ.proxy) {
         case 'test':
-            promiseToReturn = this._proxy.getData();
+            promiseToReturn = this._proxy.getTestData();
             break;
         case 'real':
             promiseToReturn = this._getFromAPI();
