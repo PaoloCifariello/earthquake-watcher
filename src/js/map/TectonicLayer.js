@@ -23,8 +23,8 @@ class TectonicLayer {
             $('#plate-tooltip').html(this._currentLabel);
             this._layer.revertStyle();
             this._layer.overrideStyle(event.feature, {
-                strokeWeight: 3,
-                fillOpacity: 0.2
+                strokeWeight: 2.5,
+                fillOpacity: 0.15
             });
         });
 
