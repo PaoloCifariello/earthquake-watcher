@@ -198,8 +198,8 @@ body {
 }
 
 .circle {
-    opacity: 0.6;
-    border: 0.5px solid black;
+    opacity: 0.9;
+    border: 1px solid black;
 }
 
 .circle-2 {
@@ -261,6 +261,46 @@ body {
     margin-top: 5px;
 }
 
-.circleLayer-label {
+.font-size-1-2-em {
     font-size: 1.2em;
+}
+
+
+/* HeatMap legend */
+
+.heatMapLayer-map-legend-label {
+    width: 50%;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.heatmapLayer-map-legend-scale {
+    width: 34px;
+    height: 15px;
+}
+
+.heatmapLayer-map-legend-scale-1 {
+    background: linear-gradient(to right, #ffffb2, #fed976);
+}
+
+.heatmapLayer-map-legend-scale-2 {
+    background: linear-gradient(to right, #fed976, #feb24c);
+}
+
+.heatmapLayer-map-legend-scale-3 {
+    background: linear-gradient(to right, #feb24c, #fd8d3c);
+}
+
+.heatmapLayer-map-legend-scale-4 {
+    background: linear-gradient(to right, #fd8d3c, #f03b20);
+}
+
+.heatmapLayer-map-legend-scale-5 {
+    background: linear-gradient(to right, #f03b20, #bd0026);
 }
