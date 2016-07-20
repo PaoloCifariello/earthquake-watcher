@@ -23,23 +23,7 @@ class CircleLayer {
     }
 
 
-    setSelected(earthquakeId) {
-//        let earthquake = this._layer.getFeatureById(earthquakeId),
-//            magnitude = earthquake.getProperty('mag'),
-//            color = this._paletteScale(magnitude);
-        //        this._layer.revertStyle();
-        //        this._layer.overrideStyle(earthquake, {
-        //            icon: {
-        //                path: google.maps.SymbolPath.CIRCLE,
-        //                strokeWeight: 2,
-        //                strokeColor: 'black',
-        //                fillColor: color,
-        //                fillOpacity: .9,
-        //                scale: magnitude * 2
-        //            },
-        //            zIndex: 500
-        //        });
-    }
+    setSelected(earthquakeId) {}
 
     empty() {
         let dataLayer = this._layer;

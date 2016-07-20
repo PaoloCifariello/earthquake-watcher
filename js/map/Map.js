@@ -41,10 +41,11 @@ class Map {
 
         this.setVisualizationType('markersLayer');
 
-        /* refresh list when bounds change, also set handler for green marker */
-        this._map.addListener('bounds_changed', () => this._refreshEarthquakesList());
+        /* refresh list when stop making changes */
+        this._map.addListener('idle', () => this._refreshEarthquakesList());
 
 
+        EQ.logger.debug('Adding legend to Map');
         let legend = $('#map-legend');
         this._map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend[0]);
         legend.show();
@@ -52,6 +53,7 @@ class Map {
 
     setData(data) {
         EQ.logger.info('Got new data');
+        EQ.logger.debug('Emptying data layers');
         $.each(this._layers, (i, layer) => {
             layer.empty();
         });
