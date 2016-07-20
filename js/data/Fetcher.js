@@ -10,6 +10,7 @@ class Fetcher {
     }
 
     fetchData() {
+        EQ.logger.info('Fetching new data from', EQ.proxy);
         let promiseToReturn = null;
         switch (EQ.proxy) {
         case 'test':

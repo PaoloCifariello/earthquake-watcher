@@ -51,6 +51,7 @@ class Map {
     }
 
     setData(data) {
+        EQ.logger.info('Got new data');
         $.each(this._layers, (i, layer) => {
             layer.empty();
         });
@@ -70,6 +71,7 @@ class Map {
     }
 
     setVisualizationType(visualizationType) {
+        EQ.logger.debug('New visualization type', visualizationType);
         this._visualizationType = visualizationType;
 
         $.each(this._layers, (layerName, layer) => {
@@ -80,6 +82,7 @@ class Map {
         });
 
         /* set new legend */
+        EQ.logger.debug('Setting new legend for', visualizationType);
         this._setLegend(visualizationType);
     }
 
@@ -90,10 +93,12 @@ class Map {
                 bounds = this._map.getBounds();
             if (bounds && bounds.contains(position)) visibleEarthquakes.push(earthquake);
         });
+
         return visibleEarthquakes;
     }
 
     refreshData() {
+        EQ.logger.info('Refreshing data');
         this.fetcher
             .fetchData()
             .then((data) => {
@@ -110,6 +115,8 @@ class Map {
     /* called to refresh the list of eq.kes */
     _refreshEarthquakesList() {
         this._visibleEarthquakes = this.getVisibleEarthquakes();
+        EQ.logger.debug('Found', this._visibleEarthquakes.length, 'visible earthquakes');
+
         this._visibleEarthquakes.sort((a, b) => {
             return parseFloat(b.getProperty('mag')) - parseFloat(a.getProperty('mag'));
         });
@@ -159,6 +166,8 @@ class Map {
         container.scrollTop(
             scrollTo.offset().top - container.offset().top
         );
+
+        EQ.logger.debug('Selected earthquake', id);
     }
 
     _getListElement(options) {

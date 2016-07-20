@@ -1,21 +1,12 @@
 class GraphManager {
     constructor() {}
 
-    _updateScales() {
-        this._xScale = d3.scale.linear()
-            .domain([0, 20])
-            .range([20, 780]);
-
-        this._yScale = d3.scale.linear()
-            .domain([0, 20])
-            .range([600, 100]);
-    }
-
     drawGraph(visibleEarthquakes) {
         let data = this._normalizeData(visibleEarthquakes);
         $('#chart-svg').empty();
 
         nv.addGraph(() => {
+            EQ.logger.info('Creating new graph');
             var chart = nv.models.scatterChart()
                 .useVoronoi(true)
                 .color(d3.scale.category10().range())
@@ -25,6 +16,7 @@ class GraphManager {
             chart.tooltip.contentGenerator(this._getTooltip);
             //chart.dispatch.on('renderEnd', function () {});
 
+            EQ.logger.debug('Axis configuration');
             /* X axis */
             chart.showXAxis(true);
             chart.xAxis.tickFormat(function (d) {
@@ -48,6 +40,8 @@ class GraphManager {
 
             this._chart = chart;
             setTimeout(this._chart.update, 500);
+
+            EQ.logger.info('New graph created');
             return chart;
         });
     }
@@ -69,6 +63,7 @@ class GraphManager {
             'Date: ' + date + '<br></div>');
 
 
+        EQ.logger.debug('Tooltip for', earthquake.getId());
         return tooltip.html();
     }
 
@@ -76,8 +71,7 @@ class GraphManager {
         var platesData = {},
             random = d3.random.normal();
 
-
-
+        EQ.logger.debug('Normalizing', visibleEarthquakes.length, 'data');
         $.each(visibleEarthquakes, (i, earthquake) => {
             let point = earthquake.getGeometry().get(),
                 plates = EQ.map._tectonicsLayer.getPlateByPoint(point),
@@ -105,6 +99,7 @@ class GraphManager {
                 values: plateValues
             });
         });
+        EQ.logger.debug(visibleEarthquakes.length, 'data normalized');
 
         return data;
     }
