@@ -23,8 +23,8 @@
     <script src="lib/js/colorbrewer.js"></script>
     <!--  D3  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js" crossorigin="anonymous"></script>
-    <!--  DSimple  -->
-    <!--    <script src="http://dimplejs.org/dist/dimple.v2.2.0.min.js"></script>-->
+    <!--  D3 legend  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.10.0/d3-legend.js" crossorigin="anonymous"></script>
     <!--  NVD3  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.4/nv.d3.js" crossorigin="anonymous"></script>
     <!-- jQuery -->
@@ -131,6 +131,48 @@
             <div id="chart" class="modal-content">
                 <svg id="chart-svg"></svg>
             </div>
+        </div>
+    </div>
+    <div id="map-legend">
+        <div id="markersLayer-map-legend" class="map-legend">
+            <div style="display: flex;">
+                <img class="gmaps-marker-img" src="https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi_hdpi.png">
+                <span class="markerLayer-label">Earthquake</span>
+            </div>
+        </div>
+        <div id="circleLayer-map-legend" class="map-legend">
+            <div class="circleLayer-label">Richter magnitude scale</div>
+            <div class="flex-column margin-top-5">
+                <div class="flex">
+                    <div class="circle-container">
+                        <div class="circle circle-2"></div>
+                    </div>
+                    <div class="circle-container">
+                        <div class="circle circle-4"></div>
+
+                    </div>
+                    <div class="circle-container">
+                        <div class="circle circle-6"></div>
+
+                    </div>
+                    <div class="circle-container">
+                        <div class="circle circle-8"></div>
+                    </div>
+                    <div class="circle-container">
+                        <div class="circle circle-10"></div>
+                    </div>
+                </div>
+                <div class="flex margin-top-5">
+                    <span class="circleLayer-legend-label" style="width: 10px;">2</span>
+                    <span class="circleLayer-legend-label" style="width: 18px;">4</span>
+                    <span class="circleLayer-legend-label" style="width: 26px;">6</span>
+                    <span class="circleLayer-legend-label" style="width: 34px;">8</span>
+                    <span class="circleLayer-legend-label" style="width: 42px;">10</span>
+                </div>
+            </div>
+        </div>
+        <div id="heatMapLayer-map-legend" class="map-legend">
+            Heatmap legend
         </div>
     </div>
 </body>

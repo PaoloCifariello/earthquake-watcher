@@ -29,6 +29,8 @@ class MarkersLayer {
         });
     }
 
+    setLegend(element) {}
+
     empty() {
         let dataLayer = this._layer;
         dataLayer.forEach((feature) => {

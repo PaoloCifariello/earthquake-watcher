@@ -43,6 +43,11 @@ class Map {
 
         /* refresh list when bounds change, also set handler for green marker */
         this._map.addListener('bounds_changed', () => this._refreshEarthquakesList());
+
+
+        let legend = $('#map-legend');
+        this._map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend[0]);
+        legend.show();
     }
 
     setData(data) {
@@ -73,6 +78,9 @@ class Map {
             else
                 layer.disable();
         });
+
+        /* set new legend */
+        this._setLegend(visualizationType);
     }
 
     getVisibleEarthquakes() {
@@ -92,6 +100,11 @@ class Map {
                 /* GeoJSON object, type: FeatureCollection */
                 this.setData(data);
             });
+    }
+
+    _setLegend(visualizationType) {
+        $('#map-legend .map-legend').hide();
+        $('#' + visualizationType + '-map-legend').show();
     }
 
     /* called to refresh the list of eq.kes */

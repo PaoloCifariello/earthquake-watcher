@@ -15,7 +15,7 @@ class CircleLayer {
         });
         this._paletteScale = d3.scale.quantize()
             .domain([0, 10])
-            .range(colorbrewer.YlOrRd[9]);
+            .range(colorbrewer.YlOrRd[6]);
     }
 
     addData(data) {
@@ -36,12 +36,11 @@ class CircleLayer {
                 strokeColor: 'black',
                 fillColor: color,
                 fillOpacity: .9,
-                scale: Math.log(magnitude) * magnitude * 4
+                scale: magnitude * 2
             },
             zIndex: 500
         });
     }
-
 
     empty() {
         let dataLayer = this._layer;
@@ -70,8 +69,7 @@ class CircleLayer {
                 strokeColor: 'black',
                 fillColor: color,
                 fillOpacity: 0.6,
-                // while an exponent would technically be correct, quadratic looks nicer
-                scale: Math.log(magnitude) * magnitude * 4
+                scale: magnitude * 2
             },
             zIndex: Math.floor(magnitude * 10)
         };

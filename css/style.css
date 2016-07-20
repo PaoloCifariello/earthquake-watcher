@@ -100,6 +100,15 @@ body {
     height: 100%;
 }
 
+#map-legend {
+    background: white;
+    padding: 10px;
+    display: none;
+    box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+    border-radius: 2px;
+    margin: 10px;
+}
+
 .option-title {
     margin: 5px;
 }
@@ -172,4 +181,86 @@ body {
 
 .earthquake-list-item-body {
     text-align: left;
+}
+
+.map-legend {
+    display: none;
+}
+
+.gmaps-marker-img {
+    width: 11px;
+    height: 20px;
+}
+
+.markerLayer-label {
+    font-size: 1.4em;
+    margin-left: 5px;
+}
+
+.circle {
+    opacity: 0.6;
+    border: 0.5px solid black;
+}
+
+.circle-2 {
+    width: 10px;
+    height: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background: #fed976;
+}
+
+.circle-4 {
+    width: 18px;
+    height: 18px;
+    -webkit-border-radius: 18px;
+    -moz-border-radius: 18px;
+    border-radius: 18px;
+    background: #feb24c;
+}
+
+.circle-6 {
+    width: 26px;
+    height: 26px;
+    -webkit-border-radius: 26px;
+    -moz-border-radius: 26px;
+    border-radius: 26px;
+    background: #fd8d3c;
+}
+
+.circle-8 {
+    width: 34px;
+    height: 34px;
+    -webkit-border-radius: 34px;
+    -moz-border-radius: 34px;
+    border-radius: 34px;
+    background: #f03b20;
+}
+
+.circle-10 {
+    width: 42px;
+    height: 42px;
+    -webkit-border-radius: 42px;
+    -moz-border-radius: 42px;
+    border-radius: 42px;
+    background: #f03b20;
+}
+
+.circle-container {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-right: 5px;
+}
+
+.circleLayer-legend-label {
+    margin-right: 5px;
+}
+
+.margin-top-5 {
+    margin-top: 5px;
+}
+
+.circleLayer-label {
+    font-size: 1.2em;
 }
