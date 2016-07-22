@@ -52,7 +52,7 @@ class Map {
     }
 
     setData(data) {
-        EQ.logger.info('Got new data');
+        EQ.logger.info('Setting new data');
         EQ.logger.debug('Emptying data layers');
         $.each(this._layers, (i, layer) => {
             layer.empty();
@@ -60,16 +60,18 @@ class Map {
 
         /* need to take normalized data from Google Maps API to avoid 
         /* further steps during HeatMapCreation */
+        EQ.logger.debug('Adding data to layers');
         let normalizedData = this._layers.markersLayer.addData(data);
         this._layers.circleLayer.addData(data);
         this._layers.heatMapLayer.addData(normalizedData);
 
+        EQ.logger.debug('Storing new data');
         this._data = {};
         $.each(data.features, (i, earthquake) => {
             this._data[earthquake.id] = earthquake;
         })
 
-        google.maps.event.trigger(this._map, 'bounds_changed');
+        google.maps.event.trigger(this._map, 'idle');
     }
 
     setVisualizationType(visualizationType) {
@@ -120,7 +122,15 @@ class Map {
         EQ.logger.debug('Found', this._visibleEarthquakes.length, 'visible earthquakes');
 
         this._visibleEarthquakes.sort((a, b) => {
-            return parseFloat(b.getProperty('mag')) - parseFloat(a.getProperty('mag'));
+            var aVal = parseFloat(a.getProperty('mag'));
+            var bVal = parseFloat(b.getProperty('mag'));
+
+            if (isNaN(bVal))
+                bVal = -1;
+            if (isNaN(aVal))
+                aVal = -1;
+
+            return bVal - aVal;
         });
 
         $('#earthquake-list').empty();
@@ -178,7 +188,8 @@ class Map {
             '<div class="earthquake-list-item-header width-height-100"><b>' + options.title + '</b></div>' +
             '<div class="earthquake-list-item-body width-height-100">' +
             (EQ.debug ? 'ID: ' + options.id + '<br>' : '') +
-            'Magnitude ' + options.magnitude.toFixed(2) + (options.tsunami ? ', tsunami' : '') + '<br>' +
+            ($.isNumeric(options.magnitude) ? 'Magnitude ' + options.magnitude.toFixed(2) + '<br>' : '') +
+            (options.tsunami ? 'Tsunami' + '<br>' : '') +
             'Depth ' + options.depth.toFixed(2) + ' km<br>' +
             'Date ' + options.date + '<br>' +
             '<a target="_blank" href="' + options.url + '">Details</a>' +

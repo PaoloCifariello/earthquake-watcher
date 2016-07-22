@@ -1,5 +1,6 @@
 class Logger {
-    constructor() {
+    constructor(logLevel) {
+        this._logLevel = logLevel;
         this.LogLevel = Logger.LogLevel;
 
         this._styles = {
@@ -18,6 +19,11 @@ class Logger {
         });
     }
 
+    setLogLevel(logLevel) {
+        if ($.isNumeric(logLevel) && logLevel > -1)
+            this._logLevel = logLevel;
+    }
+
     _log(logType, ...msgList) {
         if (!this._isLoggable(logType))
             return;
@@ -30,7 +36,7 @@ class Logger {
 
     _isLoggable(logLevelId) {
         let logLevel = this.LogLevel[logLevelId];
-        return logLevel <= EQ.logLevel;
+        return logLevel <= this._logLevel;
     }
 }
 
