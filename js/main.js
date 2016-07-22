@@ -1,7 +1,6 @@
 $(function () {
     window.EQ = {
         debug: true,
-        logLevel: Logger.LogLevel.debug,
         /* 1 -> 4 */
         proxy: 'test',
         /* 
@@ -11,7 +10,7 @@ $(function () {
          */
         map: null,
         graphManager: new GraphManager(),
-        logger: new Logger()
+        logger: new Logger(Logger.LogLevel.debug)
     };
 
     EQ.logger.debug('EQ initialized', EQ.debug ? 'in dev mode' : undefined);
