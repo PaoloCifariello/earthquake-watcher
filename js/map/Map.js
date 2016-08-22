@@ -1,4 +1,4 @@
-class Map {
+class EarthquakeMap {
     constructor(zoom, center) {
         this._map = null;
 
@@ -140,6 +140,7 @@ class Map {
             let listElement = this._getListElement({
                 id: id,
                 title: earthquake.getProperty('title'),
+                position: earthquake.getGeometry().get(),
                 index: i + 1,
                 total: this._visibleEarthquakes.length,
                 magnitude: earthquake.getProperty('mag'),
@@ -182,12 +183,40 @@ class Map {
         EQ.logger.debug('Selected earthquake', id);
     }
 
+    convertCoordinates(latitude, longitude) {
+        /** Latitude */
+        let convertedLatitude = Math.abs(latitude),
+            latitudeCardinal = ((latitude > 0) ? "N" : "S"),
+            latitudeDegree = Math.floor(convertedLatitude);
+
+        convertedLatitude = (convertedLatitude - latitudeDegree) * 60;
+        let latitudePrimes = Math.floor(convertedLatitude);
+
+        convertedLatitude = (convertedLatitude - latitudePrimes) * 60;
+        let latitudeSeconds = Math.floor(convertedLatitude);
+
+        /** Longitude */
+        let convertedLongitude = Math.abs(longitude),
+            LongitudeCardinal = ((longitude > 0) ? "E" : "W"),
+            LongitudeDegree = Math.floor(convertedLongitude);
+
+        convertedLongitude = (convertedLongitude - LongitudeDegree) * 60;
+        let LongitudePrimes = Math.floor(convertedLongitude);
+
+        convertedLongitude = (convertedLongitude - LongitudePrimes) * 60;
+        let LongitudeSeconds = Math.floor(convertedLongitude);
+
+        return latitudeDegree + '° ' + latitudePrimes + "' " + latitudeSeconds + '" ' + latitudeCardinal + ', ' +
+            LongitudeDegree + '° ' + LongitudePrimes + "' " + LongitudeSeconds + '" ' + LongitudeCardinal;
+    }
+
     _getListElement(options) {
         return $('<div id="' + options.id + '" class="list-group-item earthquake-list-item"> ' +
             '<div class="earthquake-list-item-content width-height-100">' +
             '<div class="earthquake-list-item-header width-height-100"><b>' + options.title + '</b></div>' +
             '<div class="earthquake-list-item-body width-height-100">' +
             (EQ.debug ? 'ID: ' + options.id + '<br>' : '') +
+            'Position ' + this.convertCoordinates(options.position.lat(), options.position.lng()) + '<br>' +
             ($.isNumeric(options.magnitude) ? 'Magnitude ' + options.magnitude.toFixed(2) + '<br>' : '') +
             (options.tsunami ? 'Tsunami' + '<br>' : '') +
             'Depth ' + options.depth.toFixed(2) + ' km<br>' +
