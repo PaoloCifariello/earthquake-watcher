@@ -10,10 +10,12 @@ class GraphManager {
             var chart = nv.models.scatterChart()
                 .useVoronoi(true)
                 .color(d3.scale.category10().range())
-                .duration(300);
+                .duration(300)
+
+            chart.scatter.pointDomain([0, 10]);
 
             chart.noData("No data to display");
-            chart.tooltip.contentGenerator(this._getTooltip);
+            chart.tooltip.contentGenerator((data) => this._getTooltip(data));
             //chart.dispatch.on('renderEnd', function () {});
 
             EQ.logger.debug('Axis configuration');
@@ -58,7 +60,7 @@ class GraphManager {
 
         let tooltip = $('<div><b>' + title + '</b><br>' +
             plate + '</br>' +
-            'Position: (' + latitude + ', ' + longitude + ')<br>' +
+            'Position: ' + EQ.map.convertCoordinates(latitude, longitude) + '<br>' +
             'Magnitude: ' + magnitude + '<br>' +
             'Date: ' + date + '<br></div>');
 
@@ -76,14 +78,14 @@ class GraphManager {
             let point = earthquake.getGeometry().get(),
                 plates = EQ.map._tectonicsLayer.getPlateByPoint(point),
                 plateIdentifier = plates.inside[0] || plates.near[0],
-                magnitude = earthquake.getProperty('mag'),
+                magnitude = earthquake.getProperty('mag') || 0,
                 time = earthquake.getProperty('time'),
                 plateEarthquakes = platesData[plateIdentifier] || [];
 
             plateEarthquakes.push({
                 x: time,
                 y: magnitude,
-                size: Math.pow(2, magnitude), //Configure the size of each scatter point
+                size: magnitude, //Configure the size of each scatter point
                 shape: "circle", //Configure the shape of each scatter point.
                 earthquake: earthquake
             });

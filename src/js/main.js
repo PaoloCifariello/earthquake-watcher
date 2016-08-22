@@ -70,7 +70,7 @@ function initMap() {
         };
 
     EQ.logger.debug('Map initialization');
-    EQ.map = new Map(zoom, center);
+    EQ.map = new EarthquakeMap(zoom, center);
     EQ.map.initializeMap();
 
     /* first time fetch */
