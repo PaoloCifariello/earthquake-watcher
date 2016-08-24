@@ -1,15 +1,18 @@
 $(function () {
     window.EQ = {
+        /* Shows debug information */
         debug: true,
-        /* 1 -> 4 */
-        proxy: 'test',
-        /* 
-         * 'empty' -> no data, 
-         * 'test' -> test data, 
-         * 'real' -> real data
+        /* Allows to choose data source
+         *
+         * 'empty' -> no data found for each filter option specified, 
+         * 'test' -> test data, same data is returned for each filter option specified, 
+         * 'real' -> real data, data returned are real ones
          */
+        proxy: 'test',
+        /* Will contain main objects */
         map: null,
         graphManager: new GraphManager(),
+        /* Simple configurable logger, able to show console messages depending on LogLevel specified */
         logger: new Logger(Logger.LogLevel.debug)
     };
 
