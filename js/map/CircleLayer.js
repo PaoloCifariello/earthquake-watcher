@@ -2,7 +2,6 @@ class CircleLayer {
     constructor(map) {
         this._map = map;
         this._layer = new google.maps.Data({
-            //url: 'http://dl.dropboxusercontent.com/s/pjlm3uqdczmc5c5/tectonics.kml?dl=0'
             map: map
         });
         this._initialize();
@@ -10,9 +9,6 @@ class CircleLayer {
 
     _initialize() {
         this._layer.setStyle((earthquake) => this._getCircleStyle(earthquake));
-        //        this._layer.addListener('click', (earthquake) => {
-        //            EQ.map.selectEarthquake(earthquake.feature);
-        //        });
         this._paletteScale = d3.scale.quantize()
             .domain([0, 10])
             .range(colorbrewer.YlOrRd[6]);

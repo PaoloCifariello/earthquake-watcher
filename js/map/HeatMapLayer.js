@@ -11,9 +11,7 @@ class HeatMapLayer {
         this._initialize();
     }
 
-    _initialize() {
-        //        this._layer.setStyle(this._getMarkersStyle());
-    }
+    _initialize() {}
 
     addData(data) {
         let heatmapData = [];

@@ -2,7 +2,6 @@ class MarkersLayer {
     constructor(map) {
         this._map = map;
         this._layer = new google.maps.Data({
-            //url: 'http://dl.dropboxusercontent.com/s/pjlm3uqdczmc5c5/tectonics.kml?dl=0'
             map: null
         });
         this._initialize();
