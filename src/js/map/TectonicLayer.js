@@ -2,7 +2,6 @@ class TectonicLayer {
     constructor(map) {
         this._polygons = [];
         this._layer = new google.maps.Data({
-            //url: 'http://dl.dropboxusercontent.com/s/pjlm3uqdczmc5c5/tectonics.kml?dl=0'
             map: map
         });
         this._currentLabel = null;
