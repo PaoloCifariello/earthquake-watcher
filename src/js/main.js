@@ -1,7 +1,7 @@
 $(function () {
     window.EQ = {
         /* Shows debug information */
-        debug: true,
+        debug: false,
         /* Allows to choose data source
          *
          * 'empty' -> no data found for each filter option specified, 
