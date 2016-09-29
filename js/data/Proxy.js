@@ -9,7 +9,10 @@ class Proxy {
             new Promise((resolve, reject) => {
                 resolve(this._data);
             }) :
-            $.getJSON('/src/assets/proxy-data.json');
+            $.getJSON('/src/assets/proxy-data.json').then((data) => {
+                this._data = data;
+                return data;
+            });
     }
 
     getEmptyData() {
@@ -17,6 +20,9 @@ class Proxy {
             new Promise((resolve, reject) => {
                 resolve(this._emptyData);
             }) :
-            $.getJSON('/src/assets/proxy-emptydata.json');
+            $.getJSON('/src/assets/proxy-emptydata.json').then((data) => {
+                this._emptyData = data;
+                return data;
+            });
     }
 }
