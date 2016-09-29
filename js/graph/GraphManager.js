@@ -22,9 +22,14 @@ class GraphManager {
             /* X axis */
             chart.showXAxis(true);
             chart.xAxis.tickFormat(function (d) {
-                return d3.time.format('%d-%m, %H:%M')(new Date(d));
+                return moment.unix(d).format('DD-MM, HH:MM')
             });
             chart.xAxis.showMaxMin(false);
+            let dateRangePicker = $('#reportrange').data('daterangepicker'),
+                startDate = moment(dateRangePicker.startDate).unix(),
+                endDate = moment(dateRangePicker.endDate).unix();
+
+            chart.forceX([startDate, endDate]);
 
             /* Y axis */
             chart.forceY([0, 10]);
@@ -79,7 +84,7 @@ class GraphManager {
                 plates = EQ.map._tectonicsLayer.getPlateByPoint(point),
                 plateIdentifier = plates.inside[0] || plates.near[0],
                 magnitude = earthquake.getProperty('mag') || 0,
-                time = earthquake.getProperty('time'),
+                time = moment(earthquake.getProperty('time')).unix(),
                 plateEarthquakes = platesData[plateIdentifier] || [];
 
             plateEarthquakes.push({

@@ -8,7 +8,7 @@ $(function () {
          * 'test' -> test data, same data is returned for each filter option specified, 
          * 'real' -> real data, data returned are real ones
          */
-        proxy: 'test',
+        proxy: 'real',
         /* Will contain main objects */
         map: null,
         graphManager: new GraphManager(),

@@ -14,15 +14,22 @@ class Fetcher {
         let promiseToReturn = null;
         switch (EQ.proxy) {
         case 'test':
-            promiseToReturn = this._proxy.getTestData();
-            break;
+            {
+                promiseToReturn = this._proxy.getTestData();
+                break;
+            }
         case 'real':
-            promiseToReturn = this._getFromAPI();
-            break;
+            {
+                $('#loading-window').show();
+                promiseToReturn = this._getFromAPI();
+                break;
+            }
         case 'empty':
         default:
-            promiseToReturn = this._proxy.getEmptyData();
-            break;
+            {
+                promiseToReturn = this._proxy.getEmptyData();
+                break;
+            }
         }
 
         return promiseToReturn;
@@ -38,6 +45,9 @@ class Fetcher {
         $.each(this._options, (key, value) => {
             url += '&' + key + '=' + value;
         });
-        return $.getJSON(url);
+        return $.getJSON(url).then((data) => {
+            $('#loading-window').hide();
+            return data;
+        });
     }
 }
