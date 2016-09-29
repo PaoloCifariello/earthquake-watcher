@@ -11,6 +11,17 @@ body {
     overflow: hidden;
 }
 
+#loading-window {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.4;
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
 #app-header {
     margin: 0px 15px 0px 15px;
 }
