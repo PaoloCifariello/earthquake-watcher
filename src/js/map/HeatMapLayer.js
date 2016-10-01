@@ -20,7 +20,7 @@ class HeatMapLayer {
                 magnitude = earthquake.getProperty('mag');
             heatmapData.push({
                 location: position,
-                weight: Math.pow(magnitude, 2)
+                weight: Math.pow(2, magnitude)
             });
         });
 
@@ -29,12 +29,7 @@ class HeatMapLayer {
     }
 
     setSelected(earthquake) {}
-
-    setLegend() {
-
-    }
-
-
+    
     empty() {
         let dataArray = new google.maps.MVCArray([]);
         this._layer.set('data', dataArray);
