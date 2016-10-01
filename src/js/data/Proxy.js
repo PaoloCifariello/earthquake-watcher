@@ -9,7 +9,7 @@ export default class Proxy {
             new Promise((resolve, reject) => {
                 resolve(this._data);
             }) :
-            $.getJSON('/assets/proxy-data.json').then((data) => {
+            $.getJSON('assets/proxy-data.json').then((data) => {
                 this._data = data;
                 return data;
             });
@@ -20,7 +20,7 @@ export default class Proxy {
             new Promise((resolve, reject) => {
                 resolve(this._emptyData);
             }) :
-            $.getJSON('/assets/proxy-emptydata.json').then((data) => {
+            $.getJSON('assets/proxy-emptydata.json').then((data) => {
                 this._emptyData = data;
                 return data;
             });

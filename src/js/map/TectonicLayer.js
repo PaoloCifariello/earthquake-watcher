@@ -9,7 +9,7 @@ export default class TectonicLayer {
     }
 
     _initialize() {
-        $.getJSON("/assets/tectonics-plate.json")
+        $.getJSON("assets/tectonics-plate.json")
             .then((tectonics) => {
                 let tectonicsData = this._layer.addGeoJson(tectonics);
                 this._cretePolygons(tectonicsData);
