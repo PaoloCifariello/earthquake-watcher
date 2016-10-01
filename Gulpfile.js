@@ -22,7 +22,7 @@ function compile() {
                 loadMaps: true
             }))
             .pipe(sourcemaps.write())
-            .pipe(gulp.dest('./src/js/'));
+            .pipe(gulp.dest('./src/'));
     }
 
     rebundle();
