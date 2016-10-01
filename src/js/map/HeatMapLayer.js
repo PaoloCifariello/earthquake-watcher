@@ -1,4 +1,4 @@
-class HeatMapLayer {
+export default class HeatMapLayer {
     constructor(map) {
         this._map = map;
         this._layer = new google.maps.visualization.HeatmapLayer({

@@ -1,4 +1,4 @@
-class GraphManager {
+export default class GraphManager {
     constructor() {}
 
     drawGraph(visibleEarthquakes) {

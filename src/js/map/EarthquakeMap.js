@@ -1,4 +1,11 @@
-class EarthquakeMap {
+import TectonicLayer from './TectonicLayer';
+import MarkersLayer from './MarkersLayer';
+import CircleLayer from './CircleLayer';
+import HeatMapLayer from './HeatMapLayer';
+
+import Fetcher from '../data/Fetcher';
+
+export default class EarthquakeMap {
     constructor(zoom, center) {
         this._map = null;
 

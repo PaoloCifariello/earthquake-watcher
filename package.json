@@ -1,0 +1,29 @@
+{
+    "name": "earthquake-watcher",
+    "version": "1.0.0",
+    "description": "Earthquakes analyzer",
+    "main": "Gulpfile.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/PaoloCifariello/earthquake-watcher.git"
+    },
+    "author": "Paolo Cifariello",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/PaoloCifariello/earthquake-watcher/issues"
+    },
+    "homepage": "https://github.com/PaoloCifariello/earthquake-watcher#readme",
+    "devDependencies": {
+        "babel-cli": "*",
+        "babel-preset-es2015": "*",
+        "gulp": "*",
+        "gulp-sourcemaps": "*",
+        "vinyl-source-stream": "*",
+        "vinyl-buffer": "*",
+        "browserify": "*",
+        "babelify": "6.3.0"
+    }
+}

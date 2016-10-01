@@ -1,23 +1,30 @@
+import EarthquakeMap from './map/EarthquakeMap';
+import GraphManager from './graph/GraphManager';
+import Logger from './util/Logger';
+
+window.EQ = {
+    /* Initialization function */
+    initialize: _initialize,
+    /* Shows debug information */
+    debug: false,
+    /* Allows to choose data source
+     *
+     * 'empty' -> no data found for each filter option specified, 
+     * 'test' -> test data, same data is returned for each filter option specified, 
+     * 'real' -> real data, data returned are real ones
+     */
+    proxy: 'real',
+    /* Will contain main objects */
+    map: null,
+    graphManager: new GraphManager(),
+    /* Simple configurable logger, able to show console messages depending on LogLevel specified */
+    logger: new Logger(Logger.LogLevel.debug)
+};
+
 /* initialization when Gmaps is loaded */
 /* initialization can start when G maps API and document are fully loaded */
-function initialize() {
+function _initialize() {
     $(function () {
-        window.EQ = {
-            /* Shows debug information */
-            debug: false,
-            /* Allows to choose data source
-             *
-             * 'empty' -> no data found for each filter option specified, 
-             * 'test' -> test data, same data is returned for each filter option specified, 
-             * 'real' -> real data, data returned are real ones
-             */
-            proxy: 'real',
-            /* Will contain main objects */
-            map: null,
-            graphManager: new GraphManager(),
-            /* Simple configurable logger, able to show console messages depending on LogLevel specified */
-            logger: new Logger(Logger.LogLevel.debug)
-        };
 
         /* Initialize Map object */
         let zoom = 2,
