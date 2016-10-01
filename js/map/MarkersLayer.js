@@ -23,7 +23,7 @@ export default class MarkersLayer {
 
         this._layer.revertStyle();
         this._layer.overrideStyle(earthquake, {
-            icon: '/assets/selected-feature.png',
+            icon: 'assets/selected-feature.png',
             zIndex: 500
         });
     }
