@@ -1,4 +1,4 @@
-class MarkersLayer {
+export default class MarkersLayer {
     constructor(map) {
         this._map = map;
         this._layer = new google.maps.Data({
@@ -23,7 +23,7 @@ class MarkersLayer {
 
         this._layer.revertStyle();
         this._layer.overrideStyle(earthquake, {
-            icon: '/src/assets/selected-feature.png',
+            icon: '/assets/selected-feature.png',
             zIndex: 500
         });
     }

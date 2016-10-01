@@ -1,4 +1,4 @@
-class Logger {
+export default class Logger {
     constructor(logLevel) {
         this._logLevel = logLevel;
         this.LogLevel = Logger.LogLevel;
@@ -18,6 +18,15 @@ class Logger {
             });
         });
     }
+
+    static get LogLevel() {
+        return {
+            error: 1,
+            warn: 2,
+            info: 3,
+            debug: 4
+        };
+    }  
 
     setLogLevel(logLevel) {
         if ($.isNumeric(logLevel) && logLevel > -1)
@@ -39,10 +48,3 @@ class Logger {
         return logLevel <= this._logLevel;
     }
 }
-
-Logger.LogLevel = {
-    error: 1,
-    warn: 2,
-    info: 3,
-    debug: 4
-};

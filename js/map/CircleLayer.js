@@ -1,4 +1,4 @@
-class CircleLayer {
+export default class CircleLayer {
     constructor(map) {
         this._map = map;
         this._layer = new google.maps.Data({

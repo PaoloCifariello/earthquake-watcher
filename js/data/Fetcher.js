@@ -1,4 +1,6 @@
-class Fetcher {
+import Proxy from './Proxy';
+
+export default class Fetcher {
     constructor() {
         this._proxy = new Proxy();
         this._options = {
