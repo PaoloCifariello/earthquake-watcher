@@ -8,7 +8,7 @@ export default class Fetcher {
             endtime: moment().add(1, 'days').format('YYYY-MM-DD')
         };
 
-        this._url = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=magnitude";
+        this._url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=magnitude";
     }
 
     fetchData() {
