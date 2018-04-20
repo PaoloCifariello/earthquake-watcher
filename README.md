@@ -6,21 +6,22 @@ To have a full view data can be visualized in different ways using:
 ### Dot distribution map
 Shows an indicator where the earthquakes occurred.
 
-<img src="https://s6.postimg.org/40hgn686p/marker_layer.png" width="600">
+<img src="img/marker_layer.png" width="600" />
+
 ### Distribution map
 Shows indicators of different size and color depending on the magnitude of the earthquakes.
 
-<img src="https://s6.postimg.org/mq9g3x0xd/circle_layer.png" width="600">
+<img src="img/circle_layer.png" width="600" />
 
 ### Heatmap
 Shows the seismicity of the analyzed area using an heatmap.
 
-<img src="https://s6.postimg.org/88c8vx9m9/heatmap_layer.png" width="600">
+<img src="img/heatmap_layer.png" width="600" />
 
 ### Timeline
 Shows the behaviour the analyzed area, in particular you can analyze the number of earthquakes happened in a specific range of time, comparing their strength and the gap between them.
 
-<img src="https://s6.postimg.org/as7vq0x69/timeline.png" width="1000">
+<img src="img/timeline.png" width="1000" />
 
 ## Data source
 
